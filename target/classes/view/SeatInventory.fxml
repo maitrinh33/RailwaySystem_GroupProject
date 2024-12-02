@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="387.0" prefWidth="909.0" styleClass="center-pane" stylesheets="@style.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="Controllers.SeatInventoryController">
+    <TableView fx:id="seatInventoryTable" layoutX="20" layoutY="20" prefHeight="300" prefWidth="629.0">
+        <columns>
+            <TableColumn fx:id="colTrainId" text="Train ID" />
+            <TableColumn fx:id="colTravelDate" text="Travel Date" />
+            <TableColumn fx:id="colClassType" text="Class Type" />
+            <TableColumn fx:id="colTotalSeats" text="Coach" />
+            <TableColumn fx:id="colAvailableSeats" prefWidth="101.5" text="Total Seats" />
+         <TableColumn fx:id="colAvailableSeats1" prefWidth="101.5" text="Available Seats" />
+         <TableColumn fx:id="colAvailableSeats11" prefWidth="101.5" text="Seat IDs" />
+        </columns>
+    </TableView>
+
+    <VBox layoutX="685.0" layoutY="20.0" spacing="10">
+        <Label text="Train ID" />
+        <TextField fx:id="txtTrainId" />
+
+        <Label text="Travel Date" />
+        <DatePicker fx:id="dateTravelDate" />
+
+        <Label text="Class Type" />
+        <ComboBox fx:id="comboClassType" prefHeight="25.0" prefWidth="175.0">
+            <!-- Items will be populated in the controller -->
+        </ComboBox>
+
+        <Label text="Total Seats" />
+        <TextField fx:id="txtTotalSeats" />
+
+        <Label text="Available Seats" />
+        <TextField fx:id="txtAvailableSeats" />
+
+        <HBox spacing="10">
+            <Button onAction="#handleAdd" styleClass="btn_add" stylesheets="@style.css" text="Add" />
+            <Button onAction="#handleUpdate" styleClass="btn_add" stylesheets="@style.css" text="Update" />
+            <Button onAction="#handleDelete" styleClass="btn_add" stylesheets="@style.css" text="Delete" />
+        </HBox>
+    </VBox>
+</AnchorPane>

@@ -1,0 +1,4 @@
+--patch-module
+railway.railwaysystem=_
+--add-reads
+railway.railwaysystem=ALL-UNNAMED

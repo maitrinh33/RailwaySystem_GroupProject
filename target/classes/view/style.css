@@ -1,0 +1,200 @@
+.center-pane{
+    -fx-background-color:#EAEEF4;
+}
+
+.login_ankerpane{
+    -fx-background-color:#353A56;
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px; 
+}
+
+.signup_ankerpane{
+    -fx-background-color:#EAEEF4;
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px; 
+}
+
+.btn_login {
+    -fx-background-color: #353A56;
+    -fx-border-radius: 40px; 
+    -fx-background-radius: 40px; 
+    -fx-border-color: #748CF1;
+    -fx-text-fill: white; 
+    -fx-cursor: hand;
+}
+
+.btn_login:hover {
+    -fx-background-color: #748CF1; 
+    -fx-text-fill: white; 
+}
+
+.side_ankerpane{
+    -fx-background-color:#353A56;
+    -fx-border-width: 2px 2px 2px 2px;
+    -fx-border-radius: 0 20px 20px 0;
+    -fx-border-style: solid;
+    -fx-border-color: #748CF1;
+    -fx-background-radius: 0 20px 20px 0; 
+}
+
+.inner_pane{
+    -fx-background-color:#748CF1;
+    -fx-border-width: 2px 2px 2px 2px;
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+    -fx-border-style: solid;
+    -fx-border-color: #748CF1;
+}
+
+.most_inner_pane{
+    -fx-background-color:#6780E2;
+    -fx-border-width: 2px 2px 2px 2px;
+    -fx-border-radius: 120px;
+    -fx-background-radius: 20px;
+    -fx-border-style: solid;
+    -fx-border-color: #748CF1;
+}
+
+.btn_dashboard {
+    -fx-background-color: transparent;
+    -fx-background-radius: 50px;
+    -fx-text-fill: white; 
+    -fx-cursor:hand;
+    -fx-alignment: CENTER-LEFT;
+}
+
+.btn_dashboard:focused {
+    -fx-background-color: #141313; 
+    -fx-text-fill: white;  
+    -fx-border-radius: 50px;
+}
+.btn_dashboard:hover {
+    -fx-background-color: #141313; 
+    -fx-text-fill: white; 
+}
+
+.card_1{
+    -fx-background-color:#748CF1;
+    -fx-border-width: 2px 2px 2px 2px;
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+    -fx-border-style: solid;
+    -fx-border-color: #748CF1;
+}
+
+.card_2{
+    -fx-background-color:#ffffff;
+    -fx-border-width: 2px 2px 2px 2px;
+    -fx-border-radius: 16px;
+    -fx-background-radius: 16px;
+    -fx-border-style: solid;
+    -fx-border-color: #ffffff;
+}
+.card_3{
+    -fx-background-color:#FD9999;
+    -fx-border-width: 2px 2px 2px 2px;
+    -fx-border-radius: 16px;
+    -fx-background-radius: 16px;
+     -fx-border-style: solid;
+    -fx-border-color: #FD9999;
+    
+}
+.pane_1111{
+     -fx-background-color:#353A56;
+    -fx-border-width: 2px 2px 2px 2px;
+    -fx-border-radius: 16px;
+    -fx-background-radius: 16px;
+     -fx-border-style: solid;
+    -fx-border-color: #353A56;
+}
+
+.shadow{
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 8,0,0,0);
+}
+
+.white-bg{
+    -fx-background-color: #fff;
+    -fx-background-radius: 8px;
+}
+
+.btn_checkticket {
+    -fx-background-color: #353A56;
+    -fx-border-radius: 0 0 20px 20px; 
+    -fx-background-radius: 0 0 20px 20px; 
+    -fx-text-fill: white; 
+    -fx-cursor: hand;
+}
+
+.btn_checkticket:hover {
+    -fx-background-color: #03346E; 
+    -fx-text-fill: white; 
+}
+
+.btn_add {
+    -fx-background-color: #748CF1;
+    -fx-background-radius: 50px;
+    -fx-text-fill: white; 
+    -fx-cursor:hand;
+}
+
+.btn_add:hover {
+    -fx-background-color: #353A56; 
+    -fx-text-fill: white; 
+}
+
+.btn_SeatInventory {
+    -fx-background-color: #353A56;
+    -fx-border-radius: 20px; 
+    -fx-background-radius: 20px; 
+    -fx-text-fill: white; 
+    -fx-cursor: hand;
+}
+
+.btn_SeatInventory:hover {
+    -fx-background-color: #748CF1; 
+    -fx-text-fill: white; 
+}
+
+.btn_search {
+    -fx-background-color: #353A56;
+    -fx-background-radius: 50px;
+    -fx-text-fill: white; 
+    -fx-cursor:hand;
+}
+
+.btn_search:hover {
+    -fx-background-color: #748CF1; 
+    -fx-text-fill: white; 
+}
+
+.table-view{
+    -fx-border-color: linear-gradient(to bottom right, #03346E, #353A56);
+    -fx-border-width: 2px;
+    -fx-padding: 0px;
+    -fx-border-radius: 10px;
+    -fx-background-color: transparent;
+}
+.table-view .table-column{
+    -fx-alignment: CENTER;
+}
+.table-view .column-header-background{
+    -fx-background-color: linear-gradient(to bottom right,#353A56,#03346E);
+    -fx-background-radius: 8px 8px 0px 0px;
+    -fx-background-insets: 0 0 0 0;
+}
+.table-view .column-header, .filter{
+    -fx-background-color: transparent;
+    -fx-size: 40px;
+}
+.table-view .column-header .label{
+    -fx-text-fill: #fff;
+}
+
+.titled-pane .titled-pane-title {
+    -fx-background-color: #3498db; /* Header background color */
+    -fx-text-fill: white;  /* Title text color */
+}
+
+.titled-pane:focused {
+    -fx-border-color: #2980b9; /* Optional border when focused */
+}
