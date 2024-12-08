@@ -2,7 +2,6 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -11,41 +10,49 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="387.0" prefWidth="909.0" styleClass="center-pane" stylesheets="@style.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="Controllers.SeatInventoryController">
-    <TableView fx:id="seatInventoryTable" layoutX="20" layoutY="20" prefHeight="300" prefWidth="629.0">
+<AnchorPane prefHeight="587.0" prefWidth="909.0" styleClass="center-pane" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.SeatInventoryController">
+    <TableView fx:id="seatInventoryTable" layoutX="20" layoutY="20" prefHeight="514.0" prefWidth="629.0">
+        <!-- Define your table columns here -->
         <columns>
-            <TableColumn fx:id="colTrainId" text="Train ID" />
-            <TableColumn fx:id="colTravelDate" text="Travel Date" />
-            <TableColumn fx:id="colClassType" text="Class Type" />
-            <TableColumn fx:id="colTotalSeats" text="Coach" />
-            <TableColumn fx:id="colAvailableSeats" prefWidth="101.5" text="Total Seats" />
-         <TableColumn fx:id="colAvailableSeats1" prefWidth="101.5" text="Available Seats" />
-         <TableColumn fx:id="colAvailableSeats11" prefWidth="101.5" text="Seat IDs" />
+            <TableColumn text="Seat ID" />
+            <TableColumn text="Train ID" />
+            <TableColumn text="Coach Number" />
+            <TableColumn text="Class Type" />
+            <TableColumn text="Total Seats" />
+            <TableColumn prefWidth="225.0" text="Available Seats" />
         </columns>
     </TableView>
+    
+    <VBox layoutX="677.0" layoutY="20.0" spacing="10">
+        <Label text="Select Template" />
+        <ComboBox fx:id="templateComboBox" promptText="Select a Seat Template" styleClass="combobox">
+            <!-- Items will be populated in the controller -->
+        </ComboBox>
 
-    <VBox layoutX="685.0" layoutY="20.0" spacing="10">
         <Label text="Train ID" />
-        <TextField fx:id="txtTrainId" />
+        <TextField fx:id="txtTrainId" editable="false" styleClass="combobox" />
 
-        <Label text="Travel Date" />
-        <DatePicker fx:id="dateTravelDate" />
+        <Label text="Coach Number" />
+        <TextField fx:id="txtCoachNumber" styleClass="combobox" />
 
         <Label text="Class Type" />
-        <ComboBox fx:id="comboClassType" prefHeight="25.0" prefWidth="175.0">
+        <ComboBox fx:id="comboClassType" prefHeight="25.0" prefWidth="189.0" styleClass="combobox">
             <!-- Items will be populated in the controller -->
         </ComboBox>
 
         <Label text="Total Seats" />
-        <TextField fx:id="txtTotalSeats" />
+        <TextField fx:id="txtTotalSeats" styleClass="combobox" />
 
         <Label text="Available Seats" />
-        <TextField fx:id="txtAvailableSeats" />
+        <TextField fx:id="txtAvailableSeats" styleClass="combobox" />
 
+        <Label text="Seat IDs" />
+        <TextField fx:id="txtSeatIds" promptText="Enter seat IDs (e.g., S1, S2, S3)" styleClass="combobox" />
+        
         <HBox spacing="10">
-            <Button onAction="#handleAdd" styleClass="btn_add" stylesheets="@style.css" text="Add" />
-            <Button onAction="#handleUpdate" styleClass="btn_add" stylesheets="@style.css" text="Update" />
-            <Button onAction="#handleDelete" styleClass="btn_add" stylesheets="@style.css" text="Delete" />
+            <Button onAction="#handleAdd" prefHeight="25.0" prefWidth="56.0" styleClass="btn_add" text="Add" />
+            <Button onAction="#handleUpdate" styleClass="btn_add" text="Update" />
+            <Button onAction="#handleDelete" prefHeight="25.0" prefWidth="58.0" styleClass="btn_add" text="Delete" />
         </HBox>
     </VBox>
 </AnchorPane>

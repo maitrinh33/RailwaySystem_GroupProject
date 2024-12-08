@@ -1,11 +1,14 @@
 Controllers\DashboardController.class
 Controllers\SidebarController.class
 Controllers\CheckTicketController.class
+Models\Schedule.class
 Controllers\BookTicketController.class
 Controllers\BookingHistoryController.class
 Controllers\LoginController.class
 module-info.class
 Controllers\TrainManagementSystem.class
+Controllers\ReportsController.class
+Models\Seat.class
 Controllers\ManageScheduleController.class
-Models\SeatInventory.class
 Controllers\SeatInventoryController.class
+Models\SeatTemplate.class

@@ -6,10 +6,7 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -18,23 +15,9 @@
 
 <AnchorPane prefHeight="835.0" prefWidth="1493.0" styleClass="center-pane" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ManageScheduleController">
    <children>
-      <ScrollPane layoutX="415.0" layoutY="3.0" prefHeight="794.0" prefWidth="1047.0">
+      <ScrollPane layoutX="415.0" layoutY="3.0" prefHeight="790.0" prefWidth="1048.0">
          <content>
-            <TableView prefHeight="829.0" prefWidth="1033.0" styleClass="shadow" stylesheets="@style.css">
-              <columns>
-                <TableColumn prefWidth="57.0" text="ID" />
-                <TableColumn prefWidth="112.5" text="Train Name" />
-                  <TableColumn prefWidth="81.5" text="Route" />
-                  <TableColumn prefWidth="111.0" text="Departure Station" />
-                  <TableColumn prefWidth="103.5" text="Arrival Station" />
-                  <TableColumn minWidth="0.0" prefWidth="102.5" text="Departure Date" />
-                  <TableColumn minWidth="0.0" prefWidth="91.0" text="Arrival Date" />
-                  <TableColumn minWidth="0.0" prefWidth="110.0" text="Departure Time" />
-                  <TableColumn minWidth="0.0" prefWidth="95.5" text="Arrival Time" />
-                  <TableColumn minWidth="0.0" prefWidth="66.0" text="Capacity" />
-                  <TableColumn minWidth="0.0" prefWidth="100.5" text="Status" />
-              </columns>
-            </TableView>
+            <TableView fx:id="tableView" prefHeight="786.0" prefWidth="1044.0" styleClass="shadow" stylesheets="@style.css" />
          </content>
       </ScrollPane>
       <AnchorPane layoutX="14.0" layoutY="65.0" prefHeight="592.0" prefWidth="380.0" stylesheets="@style.css">
@@ -66,13 +49,11 @@
                         <Font name="Century Gothic Bold" size="14.0" />
                      </font>
                   </Label>
-                  <DatePicker prefHeight="25.0" prefWidth="185.0" GridPane.columnIndex="1" />
                   <Label prefHeight="18.0" prefWidth="130.0" text="Route" GridPane.rowIndex="1">
                      <font>
                         <Font name="Century Gothic Bold" size="14.0" />
                      </font>
                   </Label>
-                  <ComboBox editable="true" prefHeight="27.0" prefWidth="181.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Label prefHeight="18.0" prefWidth="162.0" text="Departure Station" GridPane.rowIndex="2">
                      <font>
                         <Font name="Century Gothic Bold" size="14.0" />
@@ -93,13 +74,12 @@
                         <Font name="Century Gothic Bold" size="14.0" />
                      </font>
                   </Label>
-                  <ComboBox editable="true" prefHeight="27.0" prefWidth="195.0" promptText="300" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                   <Label prefHeight="18.0" prefWidth="104.0" text="Status" GridPane.rowIndex="9">
                      <font>
                         <Font name="Century Gothic Bold" size="14.0" />
                      </font>
                   </Label>
-                  <ComboBox prefHeight="27.0" prefWidth="195.0" promptText="Not Available" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                  <ComboBox fx:id="status" prefHeight="27.0" prefWidth="195.0" promptText="Not Available" styleClass="combobox" GridPane.columnIndex="1" GridPane.rowIndex="9" />
                   <Label prefHeight="18.0" prefWidth="147.0" text="Arrival Date" GridPane.rowIndex="5">
                      <font>
                         <Font name="Century Gothic Bold" size="14.0" />
@@ -110,52 +90,48 @@
                         <Font name="Century Gothic Bold" size="14.0" />
                      </font>
                   </Label>
-                  <DatePicker prefHeight="25.0" prefWidth="186.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <DatePicker prefHeight="25.0" prefWidth="183.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <DatePicker fx:id="departureDate" prefHeight="25.0" prefWidth="186.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <DatePicker fx:id="arrivalDate" prefHeight="25.0" prefWidth="183.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                   <Label prefHeight="18.0" prefWidth="147.0" text="Departure Date" GridPane.rowIndex="4">
                      <font>
                         <Font name="Century Gothic Bold" size="14.0" />
                      </font>
                   </Label>
-                  <ComboBox editable="true" prefHeight="27.0" prefWidth="181.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                  <ComboBox editable="true" prefHeight="27.0" prefWidth="181.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                  <ComboBox prefHeight="25.0" prefWidth="180.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <ComboBox prefHeight="25.0" prefWidth="185.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <ComboBox fx:id="departureStation" prefHeight="25.0" prefWidth="180.0" styleClass="combobox" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <ComboBox fx:id="arrivalStation" prefHeight="25.0" prefWidth="185.0" styleClass="combobox" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <ComboBox fx:id="route" prefHeight="25.0" prefWidth="180.0" styleClass="combobox" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <ComboBox fx:id="trainName" prefHeight="25.0" prefWidth="185.0" styleClass="combobox" GridPane.columnIndex="1" />
+                  <ComboBox fx:id="capacity" prefHeight="25.0" prefWidth="185.0" styleClass="combobox" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                  <ComboBox fx:id="departureTime" prefHeight="25.0" prefWidth="180.0" styleClass="combobox" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <ComboBox fx:id="arrivalTime" prefHeight="25.0" prefWidth="180.0" styleClass="combobox" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                </children>
             </GridPane>
-            <Button layoutX="225.0" layoutY="459.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="131.0" styleClass="btn_add" text="UPDATE">
+            <Button fx:id="btnUpdate" layoutX="225.0" layoutY="459.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="131.0" styleClass="btn_add" text="UPDATE">
                <font>
                   <Font name="Century Gothic Bold" size="12.0" />
                </font>
             </Button>
-            <Button layoutX="16.0" layoutY="459.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="131.0" styleClass="btn_add" text="ADD">
+            <Button fx:id="btnAdd" layoutX="16.0" layoutY="459.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="131.0" styleClass="btn_add" text="ADD">
                <font>
                   <Font name="Century Gothic Bold" size="12.0" />
                </font>
             </Button>
-            <Button layoutX="16.0" layoutY="529.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="131.0" styleClass="btn_add" text="CLEAR">
+            <Button fx:id="btnClear" layoutX="16.0" layoutY="529.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="131.0" styleClass="btn_add" text="CLEAR">
                <font>
                   <Font name="Century Gothic Bold" size="12.0" />
                </font>
             </Button>
-            <Button layoutX="225.0" layoutY="529.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="131.0" styleClass="btn_add" text="DELETE">
+            <Button fx:id="btnDelete" layoutX="225.0" layoutY="529.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="131.0" styleClass="btn_add" text="DELETE">
                <font>
                   <Font name="Century Gothic Bold" size="12.0" />
                </font>
             </Button>
          </children>
       </AnchorPane>
-      <Button fx:id="btnOpenSeatInventory" layoutX="14.0" layoutY="3.0" mnemonicParsing="false" onAction="#openSeatInventory" prefHeight="39.0" prefWidth="380.0" styleClass="btn_checkticket" text="Manage Seat Inventory">
+      <Button fx:id="btnOpenSeatInventory" layoutX="14.0" layoutY="3.0" mnemonicParsing="false" onAction="#openSeatInventory" prefHeight="39.0" prefWidth="380.0" styleClass="btn_checkticket" text="Manage Seat Inventory ⏫">
          <font>
             <Font name="Century Gothic Bold" size="12.0" />
          </font>
-         <graphic>
-            <ImageView fitHeight="36.0" fitWidth="63.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../dashboard/10681945.png" />
-               </image>
-            </ImageView>
-         </graphic>
       </Button>
    </children>
 </AnchorPane>

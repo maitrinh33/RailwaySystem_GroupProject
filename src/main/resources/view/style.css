@@ -167,6 +167,20 @@
     -fx-text-fill: white; 
 }
 
+.combobox{
+    -fx-background-color: white;
+    -fx-border-color:#a7a7a7;
+    -fx-font-family:"Tahoma";
+    -fx-font-size:13px;
+    -fx-background-radius: 5px; 
+    -fx-border-radius:5px;
+    -fx-border-width:.8px;
+}
+.combobox:focused{
+    -fx-border-color: #add8e6;
+    -fx-border-width:1.8px;
+}
+
 .table-view{
     -fx-border-color: linear-gradient(to bottom right, #03346E, #353A56);
     -fx-border-width: 2px;

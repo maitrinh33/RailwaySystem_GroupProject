@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.AnchorPane;
 
 public class SidebarController {
 
@@ -45,7 +46,7 @@ public class SidebarController {
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
-            Pane newContent = loader.load();
+            AnchorPane newContent = loader.load();
 
             // Wrap the content in a ScrollPane to make it scrollable
             ScrollPane scrollPane = new ScrollPane(newContent);

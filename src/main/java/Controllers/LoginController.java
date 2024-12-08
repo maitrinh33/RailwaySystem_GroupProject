@@ -9,7 +9,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.BorderPane;  // Import BorderPane
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.AnchorPane;  // Import AnchorPane
+import javafx.scene.control.ScrollPane;  // Import ScrollPane
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
