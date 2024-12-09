@@ -63,8 +63,8 @@ public class SeatInventoryController {
     private void loadSeatTemplates() {
         // Predefined seat templates
         List<SeatTemplate> templates = List.of(
-            new SeatTemplate("Standard", 10, 5),
-            new SeatTemplate("Luxury", 5, 4),
+            new SeatTemplate("First Class", 10, 5),
+            new SeatTemplate("Business", 5, 4),
             new SeatTemplate("Economy", 15, 6)
         );
 

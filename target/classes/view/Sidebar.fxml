@@ -13,11 +13,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.SidebarController">
+<BorderPane styleClass="center-pane" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.SidebarController">
    <left>
       <VBox fx:id="verticalMenu" prefHeight="861.0" prefWidth="301.0" styleClass="root" stylesheets="@style.css" BorderPane.alignment="CENTER">
           <children>
-              <AnchorPane fx:id="side_ankerpane" prefHeight="858.0" prefWidth="271.0" styleClass="side_ankerpane" stylesheets="@style.css">
+              <AnchorPane fx:id="side_ankerpane" prefHeight="861.0" prefWidth="310.0" styleClass="side_ankerpane" stylesheets="@style.css">
                   <children>
                       <Pane fx:id="inner_pane" layoutX="19.0" layoutY="30.0" prefHeight="67.0" prefWidth="242.0" styleClass="inner_pane" stylesheets="@style.css">
                           <children>
@@ -50,7 +50,7 @@
                               </ImageView>
                           </graphic>
                       </Button>
-                      <GridPane layoutX="27.0" layoutY="123.0" prefHeight="386.0" prefWidth="218.0">
+                      <GridPane layoutX="27.0" layoutY="123.0" prefHeight="386.0" prefWidth="234.0">
                           <columnConstraints>
                               <ColumnConstraints />
                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -76,7 +76,7 @@
                                       </ImageView>
                                   </graphic>
                               </Button>
-                              <Button fx:id="btnBookTicket" graphicTextGap="8.0" mnemonicParsing="false" onAction="#navigateToBookTicket" prefHeight="65.0" prefWidth="209.0" styleClass="btn_dashboard" text="Book Tickets" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                              <Button fx:id="btnBookTicket" graphicTextGap="8.0" mnemonicParsing="false" onAction="#navigateToBookTicket" prefHeight="65.0" prefWidth="209.0" styleClass="btn_dashboard" text="Ticket Booking" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                   <font>
                                       <Font name="Century Gothic Bold" size="15.0" />
                                   </font>
@@ -88,7 +88,7 @@
                                       </ImageView>
                                   </graphic>
                               </Button>
-                              <Button fx:id="btnManageSchedule" graphicTextGap="8.0" mnemonicParsing="false" onAction="#navigateToManageSchedule" prefHeight="65.0" prefWidth="268.0" styleClass="btn_dashboard" text="Schedules" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                              <Button fx:id="btnManageSchedule" graphicTextGap="8.0" mnemonicParsing="false" onAction="#navigateToManageSchedule" prefHeight="65.0" prefWidth="268.0" styleClass="btn_dashboard" text="Schedule Management" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                   <font>
                                       <Font name="Century Gothic Bold" size="15.0" />
                                   </font>
@@ -107,7 +107,7 @@
                                   <graphic>
                                       <ImageView fitHeight="29.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                                           <image>
-                                              <Image url="@../dashboard/credit-card.png" />
+                                              <Image url="@../dashboard/availability%201.png" />
                                           </image>
                                       </ImageView>
                                   </graphic>
@@ -124,14 +124,14 @@
                                       </ImageView>
                                   </graphic>
                               </Button>
-                              <Button fx:id="btnCheckTicket" graphicTextGap="8.0" mnemonicParsing="false" onAction="#navigateToCheckTicket" prefHeight="64.0" prefWidth="221.0" styleClass="btn_dashboard" text="Check Availability" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                              <Button fx:id="btnCheckTicket" graphicTextGap="8.0" mnemonicParsing="false" onAction="#navigateToCheckTicket" prefHeight="64.0" prefWidth="221.0" styleClass="btn_dashboard" text="Ticket Availability" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                   <font>
                                       <Font name="Century Gothic Bold" size="15.0" />
                                   </font>
                                   <graphic>
                                       <ImageView fitHeight="31.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">
                                           <image>
-                                              <Image url="@../dashboard/railway-station.png" />
+                                              <Image url="@../dashboard/safety.png" />
                                           </image>
                                       </ImageView>
                                   </graphic>

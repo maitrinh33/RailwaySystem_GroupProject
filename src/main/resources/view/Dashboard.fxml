@@ -9,33 +9,34 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.CheckTicketController">
+<AnchorPane id="AnchorPane" prefHeight="920.0" prefWidth="1129.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.CheckTicketController">
    <children>
-      <Pane layoutX="10.0" layoutY="10.0" prefHeight="861.0" prefWidth="1162.0" styleClass="center-pane" stylesheets="@style.css">
+      <Pane layoutY="-6.0" prefHeight="926.0" prefWidth="1129.0" styleClass="center-pane" stylesheets="@style.css">
          <children>
-            <Pane layoutX="-24.0" prefHeight="62.0" prefWidth="1145.0">
+            <Pane layoutY="7.0" prefHeight="56.0" prefWidth="1129.0" styleClass="white-bg">
                <children>
-                  <Pane layoutX="65.0" layoutY="14.0" prefHeight="45.0" prefWidth="354.0">
+                  <Pane layoutX="62.0" layoutY="6.0" prefHeight="45.0" prefWidth="354.0">
                      <children>
-                        <ImageView fitHeight="34.0" fitWidth="48.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="39.0" fitWidth="46.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../dashboard/8015994.png" />
+                              <Image url="@../dashboard/9200885.png" />
                            </image>
                         </ImageView>
-                        <Label layoutX="43.0" layoutY="9.0" prefHeight="29.0" prefWidth="297.0" text="Railway Management">
+                        <Label layoutX="50.0" layoutY="1.0" prefHeight="43.0" prefWidth="213.0" text="Railway Management">
                            <font>
-                              <Font name="Britannic Bold" size="25.0" />
+                              <Font name="Gill Sans MT Ext Condensed Bold" size="32.0" />
                            </font>
                         </Label>
                      </children>
                   </Pane>
                </children>
             </Pane>
-            <Pane fx:id="pane_1" layoutX="43.0" layoutY="179.0" prefHeight="258.0" prefWidth="171.0" styleClass="card_1" stylesheets="@style.css">
+            <Pane fx:id="pane_1" layoutX="57.0" layoutY="192.0" prefHeight="258.0" prefWidth="171.0" styleClass="card_1" stylesheets="@style.css">
                <children>
                   <ImageView fitHeight="100.0" fitWidth="80.0" layoutX="14.0" layoutY="143.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -54,12 +55,12 @@
                   </Text>
                </children>
             </Pane>
-            <Label layoutX="43.0" layoutY="90.0" prefHeight="53.0" prefWidth="279.0" text="Hello, maitrinh! ">
+            <Label layoutX="54.0" layoutY="77.0" prefHeight="44.0" prefWidth="279.0" text="Hello, maitrinh! ">
                <font>
-                  <Font name="Berlin Sans FB Bold" size="32.0" />
+                  <Font name="Edwardian Script ITC" size="50.0" />
                </font>
             </Label>
-            <Pane fx:id="pane_11" layoutX="225.0" layoutY="179.0" prefHeight="258.0" prefWidth="171.0" styleClass="card_2" stylesheets="@style.css">
+            <Pane fx:id="pane_11" layoutX="245.0" layoutY="192.0" prefHeight="258.0" prefWidth="171.0" styleClass="card_2" stylesheets="@style.css">
                <children>
                   <ImageView fitHeight="100.0" fitWidth="80.0" layoutX="14.0" layoutY="143.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -78,12 +79,12 @@
                   </Text>
                </children>
             </Pane>
-            <Text fill="#063377" layoutX="43.0" layoutY="167.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Today" wrappingWidth="92.98307228088379">
+            <Text fill="#063377" layoutX="57.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Today" wrappingWidth="92.98307228088379">
                <font>
                   <Font name="Century Gothic" size="14.0" />
                </font>
             </Text>
-            <Pane fx:id="pane_111" layoutX="411.0" layoutY="179.0" prefHeight="258.0" prefWidth="171.0" styleClass="card_1" stylesheets="@style.css">
+            <Pane fx:id="pane_111" layoutX="434.0" layoutY="192.0" prefHeight="258.0" prefWidth="171.0" styleClass="card_1" stylesheets="@style.css">
                <children>
                   <ImageView fitHeight="100.0" fitWidth="80.0" layoutY="146.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -102,7 +103,7 @@
                   </Text>
                </children>
             </Pane>
-            <Pane fx:id="pane_1111" layoutX="792.0" layoutY="179.0" prefHeight="258.0" prefWidth="266.0" styleClass="card_1" stylesheets="@style.css">
+            <Pane fx:id="pane_1111" layoutX="809.0" layoutY="192.0" prefHeight="258.0" prefWidth="266.0" styleClass="card_1" stylesheets="@style.css">
                <children>
                   <ImageView fitHeight="100.0" fitWidth="80.0" layoutX="14.0" layoutY="145.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -121,7 +122,7 @@
                   </Text>
                </children>
             </Pane>
-            <Pane fx:id="pane_1112" layoutX="598.0" layoutY="179.0" prefHeight="258.0" prefWidth="171.0" styleClass="card_3" stylesheets="@style.css">
+            <Pane fx:id="pane_1112" layoutX="622.0" layoutY="192.0" prefHeight="258.0" prefWidth="171.0" styleClass="card_3" stylesheets="@style.css">
                <children>
                   <ImageView fitHeight="100.0" fitWidth="80.0" layoutX="14.0" layoutY="146.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -140,24 +141,28 @@
                   </Text>
                </children>
             </Pane>
-            <BarChart fx:id="barChart" layoutX="18.0" layoutY="459.0" legendSide="TOP" prefHeight="388.0" prefWidth="557.0" title="Revenue Overview">
-                <xAxis>
-                    <CategoryAxis side="BOTTOM" />
-                </xAxis>
-                <yAxis>
-                    <NumberAxis side="LEFT" />
-                </yAxis>
-            </BarChart>
-
-            <LineChart fx:id="lineChart" layoutX="582.0" layoutY="459.0" prefHeight="388.0" prefWidth="482.0" title="Ticket Sales">
-                <xAxis>
-                    <CategoryAxis side="BOTTOM" />
-                </xAxis>
-                <yAxis>
-                    <NumberAxis side="LEFT" />
-                </yAxis>
-            </LineChart>
-            <Pane fx:id="most_inner_pane" layoutX="1012.0" layoutY="94.0" prefHeight="46.0" prefWidth="46.0" styleClass="most_inner_pane" stylesheets="@style.css">
+            <HBox layoutX="39.0" layoutY="482.0" prefHeight="388.0" prefWidth="1050.0">
+               <children>
+                  <BarChart fx:id="barChart" legendSide="TOP" prefHeight="388.0" prefWidth="557.0" title="Revenue Overview">
+                      <xAxis>
+                          <CategoryAxis side="BOTTOM" />
+                      </xAxis>
+                      <yAxis>
+                          <NumberAxis side="LEFT" />
+                      </yAxis>
+                  </BarChart>
+      
+                  <LineChart fx:id="lineChart" prefHeight="388.0" prefWidth="482.0" title="Ticket Sales">
+                      <xAxis>
+                          <CategoryAxis side="BOTTOM" />
+                      </xAxis>
+                      <yAxis>
+                          <NumberAxis side="LEFT" />
+                      </yAxis>
+                  </LineChart>
+               </children>
+            </HBox>
+            <Pane fx:id="most_inner_pane" layoutX="1012.0" layoutY="106.0" prefHeight="46.0" prefWidth="46.0" styleClass="most_inner_pane" stylesheets="@style.css">
                <children>
                   <ImageView fitHeight="29.0" fitWidth="63.0" layoutX="9.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -166,12 +171,20 @@
                   </ImageView>
                </children>
             </Pane>
-            <TextField fx:id="Search" layoutX="762.0" layoutY="102.0" prefHeight="29.0" prefWidth="227.0" promptText="Search" />
-            <ImageView fitHeight="22.0" fitWidth="29.0" layoutX="730.0" layoutY="106.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../dashboard/18290728.png" />
-               </image>
-            </ImageView>
+            <HBox alignment="CENTER" layoutX="745.0" layoutY="112.0" prefHeight="39.0" prefWidth="244.0" styleClass="search_box" stylesheets="@style.css">
+               <children>
+                  <TextField fx:id="Search" prefHeight="32.0" prefWidth="203.0" promptText="Type here to search" styleClass="transparent" stylesheets="@style.css">
+                     <font>
+                        <Font name="Century Gothic" size="12.0" />
+                     </font>
+                  </TextField>
+                  <ImageView fitHeight="22.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../dashboard/18290728.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
          </children>
       </Pane>
    </children>

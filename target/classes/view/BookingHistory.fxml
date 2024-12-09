@@ -20,7 +20,7 @@
 
 <AnchorPane prefHeight="856.0" prefWidth="1493.0" styleClass="center-pane" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.BookingHistoryController">
    <children>
-      <AnchorPane layoutX="15.0" layoutY="76.0" prefHeight="225.0" prefWidth="345.0" stylesheets="@style.css">
+      <AnchorPane layoutX="15.0" layoutY="69.0" prefHeight="225.0" prefWidth="345.0" stylesheets="@style.css">
          <styleClass>
             <String fx:value="white-bg" />
             <String fx:value="shadow" />
@@ -59,9 +59,9 @@
             </Button>
          </children>
       </AnchorPane>
-      <ScrollPane layoutX="380.0" prefHeight="824.0" prefWidth="1098.0">
+      <ScrollPane layoutX="380.0" prefHeight="813.0" prefWidth="1092.0" styleClass="transparent">
          <content>
-            <TableView prefHeight="823.0" prefWidth="1083.0" styleClass="shadow" stylesheets="@style.css">
+            <TableView prefHeight="805.0" prefWidth="1083.0" styleClass="shadow" stylesheets="@style.css">
               <columns>
                 <TableColumn prefWidth="57.0" text="TicketID" />
                 <TableColumn prefWidth="112.5" text="Customer's Name" />
@@ -93,7 +93,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <AnchorPane layoutX="19.0" layoutY="329.0" prefHeight="493.0" prefWidth="340.0" stylesheets="@style.css">
+      <AnchorPane layoutX="18.0" layoutY="319.0" prefHeight="493.0" prefWidth="340.0" stylesheets="@style.css">
          <styleClass>
             <String fx:value="white-bg" />
             <String fx:value="shadow" />
