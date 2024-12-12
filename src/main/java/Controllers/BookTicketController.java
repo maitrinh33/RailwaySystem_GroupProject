@@ -13,8 +13,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.fxml.FXMLLoader;
 
 /**
@@ -23,10 +21,8 @@ import javafx.fxml.FXMLLoader;
  * @author dopha
  */
 public class BookTicketController implements Initializable {
-    private static final Logger LOGGER = Logger.getLogger(ManageScheduleController.class.getName());
 
-    public void openCheckTicket() {
-        try {
+    public void openCheckTicket() throws IOException {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/CheckTicket.fxml"));
             Parent root = loader.load();
 
@@ -34,9 +30,6 @@ public class BookTicketController implements Initializable {
             stage.setTitle("Check Ticket Availability");
             stage.setScene(new Scene(root));
             stage.show();
-        } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, "Failed to load the FXML", e);
-        }
     }
 
     /**

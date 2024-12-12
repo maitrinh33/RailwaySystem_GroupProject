@@ -3,11 +3,14 @@ package Models;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Schedule {
+    private static final Logger logger = Logger.getLogger(Schedule.class.getName());
+
     private final StringProperty id;
     private final StringProperty trainName;
     private final StringProperty route;
@@ -21,9 +24,9 @@ public class Schedule {
     private final StringProperty status;
 
     // Constructor
-    public Schedule(String id, String trainName, String route, String departureStation, String arrivalStation,
-                    String departureDate, String arrivalDate, String departureTime, String arrivalTime, 
-                    String capacity, String status) {
+    public Schedule(String id, String trainName, String route, String departureStation, 
+                    String arrivalStation, String departureDate, String arrivalDate, 
+                    String departureTime, String arrivalTime, String capacity, String status) {
         this.id = new SimpleStringProperty(id);
         this.trainName = new SimpleStringProperty(trainName);
         this.route = new SimpleStringProperty(route);
@@ -82,7 +85,7 @@ public class Schedule {
         return status;
     }
 
-    // Regular Getters (for use when not binding directly)
+    // Regular Getters
     public String getId() {
         return id.get();
     }
@@ -190,26 +193,30 @@ public class Schedule {
              ResultSet resultSet = statement.executeQuery(sql)) {
 
             while (resultSet.next()) {
-                String id = resultSet.getString("id");
-                String trainName = resultSet.getString("train_name");
-                String route = resultSet.getString("source_station") + " - " + resultSet.getString("destination_station");
-                String departureDate = resultSet.getString("departure_date");
-                String arrivalDate = resultSet.getString("arrival_date");
-                String departureTime = resultSet.getString("departure_time");
-                String arrivalTime = resultSet.getString("arrival_time");
-                String capacity = resultSet.getString("capacity");
-                String status = resultSet.getString("status");
-
-                Schedule schedule = new Schedule(id, trainName, route, "", "", departureDate, arrivalDate, 
-                                                  departureTime, arrivalTime, capacity, status);
+                Schedule schedule = createScheduleFromResultSet(resultSet);
                 schedules.add(schedule);
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "Database error while fetching schedules", e);
         }
 
         return schedules;
     }
 
+    private static Schedule createScheduleFromResultSet(ResultSet resultSet) throws SQLException {
+        return new Schedule(
+            resultSet.getString("id"),
+            resultSet.getString("train_name"),
+            resultSet.getString("source_station") + " - " + resultSet.getString("destination_station"),
+            resultSet.getString("source_station"),
+            resultSet.getString("destination_station"),
+            resultSet.getString("departure_date"),
+            resultSet.getString("arrival_date"),
+            resultSet.getString("departure_time"),
+            resultSet.getString("arrival_time"),
+            resultSet.getString("capacity"),
+            resultSet.getString("status")
+        );
+    }
 }

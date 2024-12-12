@@ -20,16 +20,16 @@
          <children>
             <Pane layoutY="7.0" prefHeight="56.0" prefWidth="1129.0" styleClass="white-bg">
                <children>
-                  <Pane layoutX="62.0" layoutY="6.0" prefHeight="45.0" prefWidth="354.0">
+                  <Pane layoutX="62.0" layoutY="6.0" prefHeight="45.0" prefWidth="377.0">
                      <children>
                         <ImageView fitHeight="39.0" fitWidth="46.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../dashboard/9200885.png" />
                            </image>
                         </ImageView>
-                        <Label layoutX="50.0" layoutY="1.0" prefHeight="43.0" prefWidth="213.0" text="Railway Management">
+                        <Label layoutX="55.0" layoutY="1.0" prefHeight="43.0" prefWidth="308.0" text="Railway Management">
                            <font>
-                              <Font name="Gill Sans MT Ext Condensed Bold" size="32.0" />
+                              <Font name="Imprint MT Shadow" size="32.0" />
                            </font>
                         </Label>
                      </children>
@@ -55,7 +55,7 @@
                   </Text>
                </children>
             </Pane>
-            <Label layoutX="54.0" layoutY="77.0" prefHeight="44.0" prefWidth="279.0" text="Hello, maitrinh! ">
+            <Label layoutX="57.0" layoutY="82.0" prefHeight="44.0" prefWidth="279.0" text="Hello, maitrinh! ">
                <font>
                   <Font name="Edwardian Script ITC" size="50.0" />
                </font>

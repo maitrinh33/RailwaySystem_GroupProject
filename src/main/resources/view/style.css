@@ -15,6 +15,20 @@
     -fx-background-radius: 0 30px 30px 0; 
 }
 
+.login_input{
+    -fx-border-radius: 50px; 
+    -fx-border-color: D7D7D7;
+    -fx-background-color: rgba(240, 248, 255, 0.9); 
+    -fx-background-radius: 50px; 
+    -fx-cursor: hand;
+    -fx-text-fill: #333; 
+}
+
+.login_input:hover {
+    -fx-effect: dropshadow(three-pass-box, #ADD8E6, 5, 0, 0, 0);
+    -fx-background-color: rgba(255, 255, 255, 0.8)
+}
+
 .btn_login {
     -fx-background-color: transparent;
     -fx-border-radius: 40px; 

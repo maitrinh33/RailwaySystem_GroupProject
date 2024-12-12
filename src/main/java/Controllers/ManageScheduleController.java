@@ -136,13 +136,14 @@ public class ManageScheduleController implements Initializable {
 
     private void loadStations() {
         ObservableList<String> stations = FXCollections.observableArrayList();
-        String query = "SELECT DISTINCT departure_station AS station_name FROM schedule";  // Fetch departure stations
+        String query = "SELECT DISTINCT departure_station FROM schedule UNION SELECT DISTINCT arrival_station FROM schedule";
+
         try (Connection connection = DriverManager.getConnection(DATABASE_URL, USERNAME, PASSWORD);
              PreparedStatement statement = connection.prepareStatement(query);
              ResultSet resultSet = statement.executeQuery()) {
 
             while (resultSet.next()) {
-                stations.add(resultSet.getString("station_name"));
+                stations.add(resultSet.getString(1));  // Use index if aliasing is not necessary
             }
             departureStation.setItems(stations);
             arrivalStation.setItems(stations);
@@ -154,26 +155,67 @@ public class ManageScheduleController implements Initializable {
 
     private void loadTimes() {
         ObservableList<String> times = FXCollections.observableArrayList();
+        String query = "SELECT DISTINCT departure_time FROM schedule"; // Fetch distinct departure times
 
-        // Generate times from 00:00:00 to 23:00:00 in 1-hour intervals
-        for (int hour = 0; hour < 24; hour++) {
-            String time = String.format("%02d:00:00", hour);
-            times.add(time);
+        try (Connection connection = DriverManager.getConnection(DATABASE_URL, USERNAME, PASSWORD);
+             PreparedStatement statement = connection.prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+                times.add(resultSet.getString("departure_time"));
+            }
+
+            // Also fetch arrival times
+            query = "SELECT DISTINCT arrival_time FROM schedule"; // Fetch distinct arrival times
+            try (PreparedStatement arrivalStatement = connection.prepareStatement(query);
+                 ResultSet arrivalResultSet = arrivalStatement.executeQuery()) {
+
+                while (arrivalResultSet.next()) {
+                    if (!times.contains(arrivalResultSet.getString("arrival_time"))) {
+                        times.add(arrivalResultSet.getString("arrival_time"));
+                    }
+                }
+            }
+
+            departureTime.setItems(times);
+            arrivalTime.setItems(times);
+        } catch (SQLException e) {
+            handleDatabaseError(e, "loading times");
         }
-
-        // Set the generated times to the combo boxes
-        departureTime.setItems(times);
-        arrivalTime.setItems(times);
     }
 
     private void loadCapacity() {
-        ObservableList<String> capacities = FXCollections.observableArrayList("100", "200", "300", "400","500");
-        capacity.setItems(capacities);
+        ObservableList<String> capacities = FXCollections.observableArrayList();
+        String query = "SELECT DISTINCT capacity FROM schedule"; // Fetch distinct capacities
+
+        try (Connection connection = DriverManager.getConnection(DATABASE_URL, USERNAME, PASSWORD);
+             PreparedStatement statement = connection.prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+                capacities.add(resultSet.getString("capacity"));
+            }
+            capacity.setItems(capacities);
+        } catch (SQLException e) {
+            handleDatabaseError(e, "loading capacity");
+        }
     }
 
     private void loadStatus() {
-        ObservableList<String> statuses = FXCollections.observableArrayList("On Time", "Delayed", "Cancelled", "Active", "Inactive");
-        status.setItems(statuses);
+        ObservableList<String> statuses = FXCollections.observableArrayList();
+        String query = "SELECT DISTINCT status FROM schedule"; // Fetch distinct statuses
+
+        try (Connection connection = DriverManager.getConnection(DATABASE_URL, USERNAME, PASSWORD);
+             PreparedStatement statement = connection.prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+                statuses.add(resultSet.getString("status"));
+            }
+            status.setItems(statuses);
+        } catch (SQLException e) {
+            handleDatabaseError(e, "loading status");
+        }
     }
 
     private boolean validateInputs() {
@@ -191,7 +233,7 @@ public class ManageScheduleController implements Initializable {
         if (!validateInputs()) return;
 
         Schedule newSchedule = new Schedule(
-            String.valueOf(scheduleList.size() + 1),  // You might want to avoid using size as ID, use auto-increment from DB instead
+            null,  // ID will be generated by the database
             trainName.getValue(),
             route.getValue(),
             departureStation.getValue(),
@@ -256,6 +298,7 @@ public class ManageScheduleController implements Initializable {
         capacity.setValue(null);
         status.setValue(null);
         selectedSchedule = null;
+        tableView.getSelectionModel().clearSelection(); 
     }
 
     private void onRowSelected(MouseEvent event) {
@@ -294,13 +337,13 @@ public class ManageScheduleController implements Initializable {
         showAlert("Database Error", "Error occurred: " + e.getMessage(), Alert.AlertType.ERROR);
     }
 
-    // Database Operations
     private void saveScheduleToDatabase(Schedule schedule) {
         String query = "INSERT INTO schedule (train_name, route, departure_station, arrival_station, " +
                 "departure_date, arrival_date, departure_time, arrival_time, capacity, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection connection = DriverManager.getConnection(DATABASE_URL, USERNAME, PASSWORD);
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+
             preparedStatement.setString(1, schedule.getTrainName());
             preparedStatement.setString(2, schedule.getRoute());
             preparedStatement.setString(3, schedule.getDepartureStation());
@@ -313,6 +356,14 @@ public class ManageScheduleController implements Initializable {
             preparedStatement.setString(10, schedule.getStatus());
 
             preparedStatement.executeUpdate();
+
+            // Retrieve the generated ID
+            try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    String generatedId = generatedKeys.getString(1);
+                    schedule.setId(generatedId);  // Assuming you have a setId method in your Schedule class
+                }
+            }
         } catch (SQLException e) {
             handleDatabaseError(e, "saving schedule");
         }

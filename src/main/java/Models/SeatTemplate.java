@@ -1,9 +1,9 @@
 package Models;
 
 public class SeatTemplate {
-    private String name;
-    private int totalSeats;
-    private int availableSeats;
+    private final String name;
+    private final int totalSeats;
+    private final int availableSeats;
 
     public SeatTemplate(String name, int totalSeats, int availableSeats) {
         this.name = name;

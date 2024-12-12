@@ -1,31 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="587.0" prefWidth="909.0" styleClass="center-pane" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.SeatInventoryController">
-    <TableView fx:id="seatInventoryTable" layoutX="20" layoutY="20" prefHeight="514.0" prefWidth="629.0">
-        <!-- Define your table columns here -->
-        <columns>
-            <TableColumn text="Seat ID" />
-            <TableColumn text="Train ID" />
-            <TableColumn text="Coach Number" />
-            <TableColumn text="Class Type" />
-            <TableColumn text="Total Seats" />
-            <TableColumn prefWidth="225.0" text="Available Seats" />
-        </columns>
-    </TableView>
+<AnchorPane prefHeight="587.0" prefWidth="1138.0" styleClass="center-pane" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.SeatInventoryController">
+    <TableView fx:id="seatInventoryTable" layoutX="20" layoutY="20" prefHeight="514.0" prefWidth="809.0" />
     
-    <VBox layoutX="677.0" layoutY="20.0" spacing="10">
+    <VBox layoutX="897.0" layoutY="20.0" spacing="10">
         <Label text="Select Template" />
-        <ComboBox fx:id="templateComboBox" promptText="Select a Seat Template" styleClass="combobox">
+        <ComboBox fx:id="templateComboBox" prefHeight="27.0" prefWidth="190.0" promptText="Select a Seat Template" styleClass="combobox">
             <!-- Items will be populated in the controller -->
         </ComboBox>
 
@@ -55,4 +45,10 @@
             <Button onAction="#handleDelete" prefHeight="25.0" prefWidth="58.0" styleClass="btn_add" text="Delete" />
         </HBox>
     </VBox>
+   <Button layoutX="898.0" layoutY="509.0" onAction="#handleAutoCreateCoaches" prefHeight="25.0" prefWidth="189.0" text="Create Automatically">
+      <styleClass>
+         <String fx:value="btn_add" />
+         <String fx:value="shadow" />
+      </styleClass>
+   </Button>
 </AnchorPane>

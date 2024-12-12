@@ -21,10 +21,13 @@
          <children>
             <GridPane alignment="CENTER" hgap="10" layoutX="14.0" layoutY="264.0" prefHeight="230.0" prefWidth="308.0" vgap="10">
                 <Text fill="WHITE" text="Username" />
-                <TextField fx:id="usernameField" prefHeight="40.0" prefWidth="308.0" promptText="Enter Username" styleClass="rounded_layout" GridPane.rowIndex="1" />
+                <TextField fx:id="usernameField" prefHeight="40.0" prefWidth="308.0" promptText="Enter Username" styleClass="login_input" GridPane.rowIndex="1">
+                  <font>
+                     <Font name="Century Gothic" size="12.0" />
+                  </font></TextField>
             
                       <Text fill="WHITE" text="Password" GridPane.rowIndex="2" />
-                <PasswordField fx:id="passwordField" prefHeight="40.0" prefWidth="308.0" promptText="Enter Password" styleClass="rounded_layout" GridPane.rowIndex="3" />
+                <PasswordField fx:id="passwordField" prefHeight="40.0" prefWidth="308.0" promptText="Enter Password" styleClass="login_input" GridPane.rowIndex="3" />
             
                       <Button onAction="#handleLogin" prefHeight="36.0" prefWidth="309.0" styleClass="btn_login" text="Login" GridPane.rowIndex="5" />
                <Label prefHeight="17.0" prefWidth="175.0" text="Forgpt Password? Click here" textAlignment="RIGHT" textFill="WHITE" GridPane.rowIndex="4">
@@ -51,7 +54,7 @@
             </ImageView>
             <Label contentDisplay="CENTER" prefHeight="88.0" prefWidth="333.0" text="Welcome Back," textFill="WHITE">
                <font>
-                  <Font name="Gill Sans Ultra Bold Condensed" size="50.0" />
+                  <Font name="Imprint MT Shadow" size="50.0" />
                </font>
             </Label>
          </children>
@@ -62,7 +65,7 @@
                <children>
                   <Label layoutX="35.0" text="Sign Up" textFill="#05346a">
                      <font>
-                        <Font name="Gill Sans Ultra Bold Condensed" size="42.0" />
+                        <Font name="Imprint MT Shadow" size="42.0" />
                      </font>
                   </Label>
                   <Text layoutY="101.0" lineSpacing="5.0" strokeType="OUTSIDE" strokeWidth="0.0" text="If you haven't create an account, please choose to sign up and enter your personal infos!" textAlignment="CENTER" wrappingWidth="213.63671875">

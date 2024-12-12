@@ -1,28 +1,35 @@
 package Models;
 
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.StringProperty;
+
+import java.util.Collections;
 import java.util.List;
 
 public class Seat {
-    private final String id;
-    private final String trainId;
-    private final int coachNumber;
-    private final String classType;
-    private final int totalSeats;
-    private final int availableSeats;
-    private List<String> seatIds; // Changed to List
+    private final String id;              // Unique identifier for the seat
+    private final String trainId;         // ID of the train this seat belongs to
+    private final StringProperty classType; // Class type (e.g., Sleeper, AC)
+    private final IntegerProperty coachNumber; // Coach number
+    private final IntegerProperty totalSeats;  // Total number of seats in the coach
+    private final IntegerProperty availableSeats; // Number of available seats
+    private final List<String> seatIds;   // List of individual seat IDs
 
     // Constructor
-    public Seat(String id, String trainId, int coachNumber, String classType, int totalSeats, int availableSeats, List<String> seatIds) {
+    public Seat(String id, String trainId, int coachNumber, String classType, 
+                int totalSeats, int availableSeats, List<String> seatIds) {
         this.id = id;
         this.trainId = trainId;
-        this.coachNumber = coachNumber;
-        this.classType = classType;
-        this.totalSeats = totalSeats;
-        this.availableSeats = availableSeats;
-        this.seatIds = seatIds; // Initialize the list
+        this.coachNumber = new SimpleIntegerProperty(coachNumber);
+        this.classType = new SimpleStringProperty(classType);
+        this.totalSeats = new SimpleIntegerProperty(totalSeats);
+        this.availableSeats = new SimpleIntegerProperty(availableSeats);
+        this.seatIds = seatIds != null ? seatIds : Collections.emptyList(); // Initialize to empty list if null
     }
 
-    // Getters and Setters
+    // Getters
     public String getId() {
         return id;
     }
@@ -32,26 +39,39 @@ public class Seat {
     }
 
     public int getCoachNumber() {
-        return coachNumber;
+        return coachNumber.get();
     }
 
     public String getClassType() {
-        return classType;
+        return classType.get();
     }
 
     public int getTotalSeats() {
-        return totalSeats;
+        return totalSeats.get();
     }
 
     public int getAvailableSeats() {
-        return availableSeats;
+        return availableSeats.get();
     }
 
     public List<String> getSeatIds() {
-        return seatIds; // Return the list
+        return Collections.unmodifiableList(seatIds); // Return an unmodifiable list
     }
 
-    public void setSeatIds(List<String> seatIds) {
-        this.seatIds = seatIds; // Setter for seat IDs
+    // Properties for JavaFX binding
+    public IntegerProperty coachNumberProperty() {
+        return coachNumber;
+    }
+
+    public StringProperty classTypeProperty() {
+        return classType;
+    }
+
+    public IntegerProperty totalSeatsProperty() {
+        return totalSeats;
+    }
+
+    public IntegerProperty availableSeatsProperty() {
+        return availableSeats;
     }
 }

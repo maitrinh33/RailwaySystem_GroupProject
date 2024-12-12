@@ -30,7 +30,7 @@ public class SeatInventoryController {
     @FXML
     private TextField txtSeatIds;
     @FXML
-    private ComboBox<SeatTemplate> templateComboBox; // Added ComboBox for seat templates
+    private ComboBox<SeatTemplate> templateComboBox;
 
     private final ObservableList<Seat> seatList = FXCollections.observableArrayList();
     private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/railway_system";
@@ -41,7 +41,7 @@ public class SeatInventoryController {
     @FXML
     public void initialize() {
         loadClassTypes();
-        loadSeatTemplates(); // Load seat templates
+        loadSeatTemplates(); 
         setupTableColumns();
         loadSeats();
 
@@ -57,38 +57,49 @@ public class SeatInventoryController {
     }
 
     private void loadClassTypes() {
-        comboClassType.getItems().addAll("Economy", "Business", "First Class");
+        comboClassType.getItems().addAll("First Class", "Business", "Economy");
     }
 
     private void loadSeatTemplates() {
         // Predefined seat templates
         List<SeatTemplate> templates = List.of(
-            new SeatTemplate("First Class", 10, 5),
-            new SeatTemplate("Business", 5, 4),
-            new SeatTemplate("Economy", 15, 6)
+            new SeatTemplate("First Class", 60, 60),
+            new SeatTemplate("Business", 210, 210),
+            new SeatTemplate("Economy", 30, 10)
         );
 
         templateComboBox.setItems(FXCollections.observableArrayList(templates));
     }
-
+    
     private void loadTemplateData() {
         SeatTemplate selectedTemplate = templateComboBox.getValue();
         if (selectedTemplate != null) {
             txtTotalSeats.setText(String.valueOf(selectedTemplate.getTotalSeats()));
             txtAvailableSeats.setText(String.valueOf(selectedTemplate.getTotalSeats())); // Assuming all seats are available initially
-            txtSeatIds.setText(generateSeatIds(selectedTemplate)); // Generate seat IDs based on the template
+            txtSeatIds.setText(generateSeatIds(selectedTemplate.getTotalSeats())); // Generate seat IDs based on the template
         }
     }
 
-    private String generateSeatIds(SeatTemplate template) {
+    private String generateSeatIds(int totalSeats) {
         List<String> seatIds = new ArrayList<>();
         String prefix = "S"; // Define seat ID prefix
 
-        for (int i = 1; i <= template.getTotalSeats(); i++) {
-            seatIds.add(prefix + i);
+        for (int i = 1; i <= totalSeats; i++) {
+            seatIds.add(prefix + i); // Generate seat ID in the form S1, S2, ..., S20
         }
         return String.join(", ", seatIds);
     }
+    
+    private String generateSeatIdsForCoach(int coachNumber) {
+        List<String> seatIds = new ArrayList<>();
+        String prefix = "S"; // Define seat ID prefix
+
+        for (int i = 1; i <= 20; i++) { // Assuming each coach has 20 seats
+            seatIds.add(prefix + i); // Generate seat ID in the form S1, S2, ..., S20
+        }
+        return String.join(", ", seatIds);
+    }
+
 
     private void setupTableColumns() {
         // Clear existing columns to prevent duplicates
@@ -96,23 +107,35 @@ public class SeatInventoryController {
 
         TableColumn<Seat, String> colTrainId = new TableColumn<>("Train ID");
         colTrainId.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTrainId()));
+        colTrainId.setPrefWidth(70); // Set fixed width
+        colTrainId.setResizable(false); // Prevent resizing
 
-        TableColumn<Seat, Integer> colCoachNumber = new TableColumn<>("Coach Number");
+        TableColumn<Seat, Integer> colCoachNumber = new TableColumn<>("Coach");
         colCoachNumber.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getCoachNumber()).asObject());
+        colCoachNumber.setPrefWidth(70); // Set fixed width
+        colCoachNumber.setResizable(false); // Prevent resizing
 
         TableColumn<Seat, String> colClassType = new TableColumn<>("Class Type");
         colClassType.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getClassType()));
+        colClassType.setPrefWidth(100); // Set fixed width
+        colClassType.setResizable(false); // Prevent resizing
 
         TableColumn<Seat, Integer> colTotalSeats = new TableColumn<>("Total Seats");
         colTotalSeats.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getTotalSeats()).asObject());
+        colTotalSeats.setPrefWidth(100); // Set fixed width
+        colTotalSeats.setResizable(false); // Prevent resizing
 
         TableColumn<Seat, Integer> colAvailableSeats = new TableColumn<>("Available Seats");
         colAvailableSeats.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getAvailableSeats()).asObject());
+        colAvailableSeats.setPrefWidth(100); // Set fixed width
+        colAvailableSeats.setResizable(false); // Prevent resizing
 
         TableColumn<Seat, String> colSeatIds = new TableColumn<>("Seat IDs");
-        colSeatIds.setCellValueFactory(cellData ->
+        colSeatIds.setCellValueFactory(cellData -> 
             new SimpleStringProperty(String.join(", ", cellData.getValue().getSeatIds()))
         );
+        colSeatIds.setPrefWidth(400); // Set fixed width
+        colSeatIds.setResizable(false); // Prevent resizing
 
         // Add columns to the TableView
         seatInventoryTable.getColumns().addAll(colTrainId, colCoachNumber, colClassType, colTotalSeats, colAvailableSeats, colSeatIds);
@@ -173,6 +196,12 @@ public class SeatInventoryController {
         int availableSeats = Integer.parseInt(txtAvailableSeats.getText());
         String seatIdsInput = txtSeatIds.getText();
 
+        // Check for duplicate coach
+        if (isCoachExists(trainId, coachNumber)) {
+            showAlert("Duplicate Entry", "A coach with this number already exists for the selected train.", Alert.AlertType.WARNING);
+            return;
+        }
+
         // Parse the seat IDs input
         List<String> seatIds = parseSeatRange(seatIdsInput);
         String seatIdsString = String.join(", ", seatIds);
@@ -194,6 +223,66 @@ public class SeatInventoryController {
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Error adding seat record", e);
             showAlert("Database Error", "Failed to add seat record: " + e.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
+
+    private boolean isCoachExists(String trainId, int coachNumber) {
+        String query = "SELECT COUNT(*) FROM seat_inventory WHERE train_id = ? AND coach_number = ?";
+        try (Connection connection = DriverManager.getConnection(DATABASE_URL, USERNAME, PASSWORD);
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, trainId);
+            preparedStatement.setInt(2, coachNumber);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt(1) > 0; // Return true if any records exist
+            }
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Error checking for existing coach", e);
+        }
+        return false;
+    }
+
+    @FXML
+    private void handleAutoCreateCoaches() {
+        String trainId = txtTrainId.getText();
+        if (trainId.isEmpty()) {
+            showAlert("Input Error", "Please enter a valid Train ID.", Alert.AlertType.WARNING);
+            return;
+        }
+
+        for (int i = 1; i <= 11; i++) { // Create coaches from 1 to 11
+            int coachNumber = i; // Coach number
+            String classType = "Economy"; // Default class type
+            int totalSeats = 20; // Total seats per coach
+            int availableSeats = 20; // All seats available initially
+            String seatIdsString = generateSeatIdsForCoach(coachNumber); // Generate seat IDs
+
+            // Check for duplicate coach
+            if (!isCoachExists(trainId, coachNumber)) {
+                addCoachToDatabase(trainId, coachNumber, classType, totalSeats, availableSeats, seatIdsString);
+            } else {
+                showAlert("Duplicate Entry", "Coach " + coachNumber + " already exists for Train ID " + trainId + ".", Alert.AlertType.WARNING);
+            }
+        }
+        loadSeats(); // Refresh the seat list
+    }
+
+
+    private void addCoachToDatabase(String trainId, int coachNumber, String classType, int totalSeats, int availableSeats, String seatIdsString) {
+        String insertQuery = "INSERT INTO seat_inventory (train_id, coach_number, class_type, total_seats, available_seats, seat_ids) VALUES (?, ?, ?, ?, ?, ?)";
+
+        try (Connection connection = DriverManager.getConnection(DATABASE_URL, USERNAME, PASSWORD);
+             PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
+            preparedStatement.setString(1, trainId);
+            preparedStatement.setInt(2, coachNumber);
+            preparedStatement.setString(3, classType);
+            preparedStatement.setInt(4, totalSeats);
+            preparedStatement.setInt(5, availableSeats);
+            preparedStatement.setString(6, seatIdsString);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Error adding coach to database", e);
+            showAlert("Database Error", "Failed to add coach to database: " + e.getMessage(), Alert.AlertType.ERROR);
         }
     }
 
@@ -274,9 +363,12 @@ public class SeatInventoryController {
                 String[] parts = range.split("-");
                 if (parts.length == 2) {
                     String prefix = parts[0].replaceAll("[0-9]", ""); // Get prefix like 'S'
+
+                    // Extract start and end numbers
                     int start = Integer.parseInt(parts[0].replaceAll("[^0-9]", ""));
                     int end = Integer.parseInt(parts[1].replaceAll("[^0-9]", ""));
 
+                    // Generate individual seat IDs for the range
                     for (int i = start; i <= end; i++) {
                         seatIds.add(prefix + i); // Construct seat ID
                     }
