@@ -7,22 +7,24 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="946.0" prefWidth="1080.0" styleClass="center-pane" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ManageScheduleController">
+<AnchorPane prefHeight="1038.0" prefWidth="1100.0" styleClass="center-pane" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ManageScheduleController">
    <children>
-      <ScrollPane layoutX="18.0" layoutY="297.0" prefHeight="600.0" prefWidth="1080.0" styleClass="transparent">
+      <ScrollPane layoutX="21.0" layoutY="374.0" prefHeight="600.0" prefWidth="1070.0" styleClass="transparent">
          <content>
-            <TableView fx:id="tableView" prefHeight="595.0" prefWidth="1074.0" styleClass="shadow" stylesheets="@style.css" />
+            <TableView fx:id="tableView" prefHeight="595.0" prefWidth="1065.0" styleClass="shadow" stylesheets="@style.css" />
          </content>
       </ScrollPane>
-      <AnchorPane layoutX="21.0" layoutY="61.0" prefHeight="229.0" prefWidth="1070.0" stylesheets="@style.css">
+      <AnchorPane layoutX="21.0" layoutY="61.0" prefHeight="229.0" prefWidth="1064.0" stylesheets="@style.css">
          <styleClass>
             <String fx:value="white-bg" />
             <String fx:value="shadow" />
@@ -179,5 +181,19 @@
             <String fx:value="shadow_signup" />
          </styleClass>
       </Button>
+      <HBox alignment="CENTER" layoutX="21.0" layoutY="313.0" prefHeight="39.0" prefWidth="244.0" styleClass="search_box" stylesheets="@style.css">
+         <children>
+            <TextField fx:id="Search" prefHeight="32.0" prefWidth="203.0" promptText="Type here to search" styleClass="transparent" stylesheets="@style.css">
+               <font>
+                  <Font name="Century Gothic" size="12.0" />
+               </font>
+            </TextField>
+            <ImageView fx:id="btn_search" fitHeight="22.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../dashboard/18290728.png" />
+               </image>
+            </ImageView>
+         </children>
+      </HBox>
    </children>
 </AnchorPane>

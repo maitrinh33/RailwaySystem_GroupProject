@@ -24,9 +24,9 @@ public class Schedule {
     private final StringProperty status;
 
     // Constructor
-    public Schedule(String id, String trainName, String route, String departureStation, 
-                    String arrivalStation, String departureDate, String arrivalDate, 
-                    String departureTime, String arrivalTime, String capacity, String status) {
+    public Schedule(String id, String trainName, String route, String departureStation, String arrivalStation,
+                    String departureDate, String arrivalDate, String departureTime, String arrivalTime, 
+                    String capacity, String status) {
         this.id = new SimpleStringProperty(id);
         this.trainName = new SimpleStringProperty(trainName);
         this.route = new SimpleStringProperty(route);
@@ -177,7 +177,6 @@ public class Schedule {
     // Method to fetch all schedules from the database
     public static List<Schedule> getAllSchedules() {
         List<Schedule> schedules = new ArrayList<>();
-
         String url = "jdbc:mysql://localhost:3306/railway_system";
         String dbUsername = "root";
         String dbPassword = "3005";
@@ -216,7 +215,7 @@ public class Schedule {
             resultSet.getString("departure_time"),
             resultSet.getString("arrival_time"),
             resultSet.getString("capacity"),
-            resultSet.getString("status")
+            resultSet.getString("status") // Include status in the constructor
         );
     }
 }

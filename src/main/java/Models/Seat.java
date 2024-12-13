@@ -9,25 +9,25 @@ import java.util.Collections;
 import java.util.List;
 
 public class Seat {
-    private final String id;              // Unique identifier for the seat
-    private final String trainId;         // ID of the train this seat belongs to
-    private final StringProperty classType; // Class type (e.g., Sleeper, AC)
-    private final IntegerProperty coachNumber; // Coach number
-    private final IntegerProperty totalSeats;  // Total number of seats in the coach
-    private final IntegerProperty availableSeats; // Number of available seats
-    private final List<String> seatIds;   // List of individual seat IDs
+private final String id; // Unique identifier for the seat
+private final String trainId; // ID of the train this seat belongs to
+private final StringProperty classType; // Class type (e.g., Sleeper, AC)
+private final IntegerProperty coachNumber; // Coach number
+private final IntegerProperty totalSeats; // Total number of seats in the coach
+private final IntegerProperty availableSeats; // Number of available seats
+private final List<String> seatIds; // List of individual seat IDs
 
-    // Constructor
-    public Seat(String id, String trainId, int coachNumber, String classType, 
-                int totalSeats, int availableSeats, List<String> seatIds) {
-        this.id = id;
-        this.trainId = trainId;
-        this.coachNumber = new SimpleIntegerProperty(coachNumber);
-        this.classType = new SimpleStringProperty(classType);
-        this.totalSeats = new SimpleIntegerProperty(totalSeats);
-        this.availableSeats = new SimpleIntegerProperty(availableSeats);
-        this.seatIds = seatIds != null ? seatIds : Collections.emptyList(); // Initialize to empty list if null
-    }
+// Constructor
+public Seat(String id, String trainId, int coachNumber, String classType, 
+            int totalSeats, int availableSeats, List<String> seatIds) {
+    this.id = id;
+    this.trainId = trainId;
+    this.coachNumber = new SimpleIntegerProperty(coachNumber);
+    this.classType = new SimpleStringProperty(classType);
+    this.totalSeats = new SimpleIntegerProperty(totalSeats);
+    this.availableSeats = new SimpleIntegerProperty(availableSeats);
+    this.seatIds = seatIds != null ? seatIds : Collections.emptyList(); // Initialize to empty list if null
+}
 
     // Getters
     public String getId() {

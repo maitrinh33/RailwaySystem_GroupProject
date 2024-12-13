@@ -20,6 +20,7 @@
     -fx-border-color: D7D7D7;
     -fx-background-color: rgba(240, 248, 255, 0.9); 
     -fx-background-radius: 50px; 
+    -fx-padding: 10; /* Add some padding for a cleaner look */
     -fx-cursor: hand;
     -fx-text-fill: #333; 
 }

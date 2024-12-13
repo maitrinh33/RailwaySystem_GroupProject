@@ -245,7 +245,7 @@ public class ManageScheduleController implements Initializable {
             capacity.getValue(),
             status.getValue()
         );
-
+        
         scheduleList.add(newSchedule);
         saveScheduleToDatabase(newSchedule);
         clearInputs();

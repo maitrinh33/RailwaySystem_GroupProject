@@ -1,6 +1,7 @@
 Controllers\DashboardController.class
 Controllers\SidebarController.class
 Controllers\CheckTicketController.class
+Models\Reservation.class
 Models\Schedule.class
 Controllers\BookTicketController.class
 Controllers\BookingHistoryController.class

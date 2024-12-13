@@ -2,6 +2,7 @@ package Controllers;
 
 import Models.Schedule;
 import Models.Seat;
+import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.collections.FXCollections;
@@ -12,6 +13,10 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 public class CheckTicketController {
     private static final Logger logger = Logger.getLogger(CheckTicketController.class.getName());
@@ -43,31 +48,47 @@ public class CheckTicketController {
 
     @FXML
     public void initialize() {
-        if (trainTable == null) {
-            logger.log(Level.SEVERE, "trainTable is null during initialization");
-        } else {
+        setupListeners();
+        try {
+            loadStationData(); // Load station data when the controller initializes
+            setupTrainTableColumns(); // Setup initial table columns
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Initialization error", e);
+        }
+    }
+
+    private void setupListeners() {
+        if (trainTable != null) {
             trainTable.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2) {
                     handleTrainSelection();
                 }
             });
-            loadStationData(); // Load station data when the controller initializes
-            setupTrainTableColumns(); // Set up initial train table columns
+        } else {
+            logger.log(Level.SEVERE, "trainTable is null during setup listeners");
+        }
+
+        if (seatTable != null) {
+            seatTable.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2) {
+                    handleSeatSelection();
+                }
+            });
+        } else {
+            logger.log(Level.SEVERE, "seatTable is null during setup listeners");
         }
     }
-
     private void loadStationData() {
         String query = "SELECT DISTINCT departure_station FROM schedule UNION SELECT DISTINCT arrival_station FROM schedule";
-
         try (Connection conn = DriverManager.getConnection(DATABASE_URL, USERNAME, PASSWORD);
              PreparedStatement stmt = conn.prepareStatement(query);
              ResultSet rs = stmt.executeQuery()) {
 
-            departureStationComboBox.getItems().clear();  // Clear existing items
-            arrivalStationComboBox.getItems().clear();     // Clear existing items
+            departureStationComboBox.getItems().clear();
+            arrivalStationComboBox.getItems().clear();
 
             while (rs.next()) {
-                String station = rs.getString(1);  // Get the station name
+                String station = rs.getString(1);
                 departureStationComboBox.getItems().add(station);
                 arrivalStationComboBox.getItems().add(station);
             }
@@ -82,11 +103,11 @@ public class CheckTicketController {
 
         TableColumn<Schedule, String> idColumn = new TableColumn<>("ID");
         idColumn.setCellValueFactory(cellData -> cellData.getValue().idProperty());
-        idColumn.setPrefWidth(50); 
+        idColumn.setPrefWidth(50);
 
         TableColumn<Schedule, String> trainNameColumn = new TableColumn<>("Train Name");
         trainNameColumn.setCellValueFactory(cellData -> cellData.getValue().trainNameProperty());
-        trainNameColumn.setPrefWidth(70); 
+        trainNameColumn.setPrefWidth(70);
 
         TableColumn<Schedule, String> departureTimeColumn = new TableColumn<>("Departure Time");
         departureTimeColumn.setCellValueFactory(cellData -> cellData.getValue().departureTimeProperty());
@@ -95,11 +116,11 @@ public class CheckTicketController {
         TableColumn<Schedule, String> arrivalTimeColumn = new TableColumn<>("Arrival Time");
         arrivalTimeColumn.setCellValueFactory(cellData -> cellData.getValue().arrivalTimeProperty());
         arrivalTimeColumn.setPrefWidth(100);
-    
+
         TableColumn<Schedule, String> statusColumn = new TableColumn<>("Status");
         statusColumn.setCellValueFactory(cellData -> cellData.getValue().statusProperty());
-        statusColumn.setPrefWidth(90);
-        
+        statusColumn.setPrefWidth(80);
+
         trainTable.getColumns().addAll(idColumn, trainNameColumn, departureTimeColumn, arrivalTimeColumn, statusColumn);
     }
 
@@ -155,14 +176,44 @@ public class CheckTicketController {
         }
     }
 
-    @FXML
-    public void handleTrainSelection() {
-        Schedule selectedTrain = trainTable.getSelectionModel().getSelectedItem();
-        if (selectedTrain == null) {
-            showAlert("Please select a train.");
+    private void handleSeatSelection() {
+        Seat selectedSeat = seatTable.getSelectionModel().getSelectedItem();
+        if (selectedSeat == null) {
+            showAlert("Please select a seat.");
             return;
         }
-        loadSeatsForTrain(selectedTrain.getId());
+
+        Schedule selectedTrain = trainTable.getSelectionModel().getSelectedItem();
+        if (selectedTrain == null) {
+            showAlert("Please select a train first.");
+            return;
+        }
+
+        // Load the BookTicket screen
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/BookTicket.fxml"));
+            Parent bookTicketRoot = loader.load();
+            Stage stage = (Stage) seatTable.getScene().getWindow();
+            Scene scene = new Scene(bookTicketRoot);
+            stage.setScene(scene);
+            stage.show();
+
+            // Get the BookTicketController to fill in the details
+            BookTicketController bookTicketController = loader.getController();
+            bookTicketController.fillTicketDetails(
+                departureDatePicker.getValue().toString(),
+                selectedTrain.getTrainName(),
+                selectedTrain.getDepartureStation(),
+                selectedTrain.getArrivalStation(),
+                selectedSeat.getCoachNumber(),
+                selectedSeat.getClassType(),
+                selectedSeat.getSeatIds()
+            );
+
+        } catch (IOException e) {
+            logger.log(Level.SEVERE, "Error loading Book Ticket screen", e);
+            showAlert("Error loading the Book Ticket screen.");
+        }
     }
 
     private void loadSeatsForTrain(String trainId) {
@@ -199,6 +250,16 @@ public class CheckTicketController {
         }
     }
     
+    @FXML
+    public void handleTrainSelection() {
+        Schedule selectedTrain = trainTable.getSelectionModel().getSelectedItem();
+        if (selectedTrain == null) {
+            showAlert("Please select a train.");
+            return;
+        }
+        loadSeatsForTrain(selectedTrain.getId());
+    }
+
     private void setupSeatTableColumns() {
         seatTable.getColumns().clear();
 
@@ -208,31 +269,35 @@ public class CheckTicketController {
 
         TableColumn<Seat, String> classColumn = new TableColumn<>("Class Type");
         classColumn.setCellValueFactory(cellData -> cellData.getValue().classTypeProperty());
-        classColumn.setPrefWidth(80); 
+        classColumn.setPrefWidth(80);
 
         TableColumn<Seat, String> totalSeatsColumn = new TableColumn<>("Total Seats");
         totalSeatsColumn.setCellValueFactory(cellData -> cellData.getValue().totalSeatsProperty().asString());
-        totalSeatsColumn.setPrefWidth(80); 
+        totalSeatsColumn.setPrefWidth(80);
 
         TableColumn<Seat, String> availableSeatsColumn = new TableColumn<>("Available Seats");
         availableSeatsColumn.setCellValueFactory(cellData -> cellData.getValue().availableSeatsProperty().asString());
-        availableSeatsColumn.setPrefWidth(80); 
+        availableSeatsColumn.setPrefWidth(80);
 
         TableColumn<Seat, String> seatNumbersColumn = new TableColumn<>("Seat Numbers");
         seatNumbersColumn.setCellValueFactory(cellData -> {
             List<String> seatIds = cellData.getValue().getSeatIds();
-            return new SimpleStringProperty(String.join("\n", seatIds)); 
+            return new SimpleStringProperty(String.join(", ", seatIds)); 
         });
-        seatNumbersColumn.setPrefWidth(80); 
+        seatNumbersColumn.setPrefWidth(80);
 
-        // Add columns to the table
         seatTable.getColumns().addAll(coachColumn, classColumn, totalSeatsColumn, availableSeatsColumn, seatNumbersColumn);
-
     }
 
     private void showAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    private BookTicketController getBookTicketController() {
+        // Implement logic to retrieve the instance of BookTicketController
+        // This could involve accessing it through a singleton pattern, dependency injection, etc.
+        return null; // Placeholder
     }
 }

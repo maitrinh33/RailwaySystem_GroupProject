@@ -48,7 +48,7 @@
                         <Font name="Century Gothic Bold" size="12.0" />
                      </font>
                   </Label>
-                  <DatePicker styleClass="combobox" GridPane.columnIndex="1" />
+                  <DatePicker fx:id="departureDatePicker" styleClass="combobox" GridPane.columnIndex="1" />
                   <Label prefHeight="18.0" prefWidth="104.0" text="(2) Train " GridPane.rowIndex="1">
                      <font>
                         <Font name="Century Gothic Bold" size="12.0" />
@@ -79,7 +79,7 @@
                         <Font name="Century Gothic Bold" size="12.0" />
                      </font>
                   </Label>
-                  <ComboBox prefHeight="27.0" prefWidth="195.0" styleClass="combobox" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <ComboBox fx:id="coach" editable="true" prefHeight="27.0" prefWidth="195.0" styleClass="combobox" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                   <Label prefHeight="18.0" prefWidth="147.0" text="(9) Customer's Name" GridPane.rowIndex="8">
                      <font>
                         <Font name="Century Gothic Bold" size="12.0" />
@@ -92,17 +92,17 @@
                      </font>
                   </Label>
                   <TextField styleClass="combobox" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-                  <ComboBox prefHeight="27.0" prefWidth="195.0" promptText="Choose" styleClass="combobox" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                  <ComboBox prefHeight="27.0" prefWidth="195.0" promptText="Choose" styleClass="combobox" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <ComboBox prefHeight="27.0" prefWidth="195.0" promptText="Choose" styleClass="combobox" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <ComboBox prefHeight="27.0" prefWidth="195.0" promptText="Choose" styleClass="combobox" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <ComboBox prefHeight="27.0" prefWidth="195.0" styleClass="combobox" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <ComboBox fx:id="classType" editable="true" prefHeight="27.0" prefWidth="195.0" promptText="Choose" styleClass="combobox" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <ComboBox fx:id="trainName" editable="true" prefHeight="27.0" prefWidth="195.0" promptText="Choose" styleClass="combobox" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <ComboBox fx:id="departureStation" editable="true" prefHeight="27.0" prefWidth="195.0" promptText="Choose" styleClass="combobox" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <ComboBox fx:id="arrivalStation" editable="true" prefHeight="27.0" prefWidth="195.0" promptText="Choose" styleClass="combobox" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <ComboBox fx:id="seat" editable="true" prefHeight="27.0" prefWidth="195.0" styleClass="combobox" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                   <Label prefHeight="18.0" prefWidth="104.0" text="(8) Ticket Type" GridPane.rowIndex="7">
                      <font>
                         <Font name="Century Gothic Bold" size="12.0" />
                      </font>
                   </Label>
-                  <ComboBox prefHeight="27.0" prefWidth="195.0" promptText="Adult" styleClass="combobox" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                  <ComboBox fx:id="ticketType" prefHeight="27.0" prefWidth="195.0" promptText="Adult" styleClass="combobox" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                </children>
             </GridPane>
             <Button layoutX="204.0" layoutY="632.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="123.0" styleClass="btn_add" text="DELETE">
@@ -141,7 +141,7 @@
                   <TableColumn prefWidth="76.0" text="Class" />
                   <TableColumn prefWidth="84.0" text="Ticket Type" />
                   <TableColumn prefWidth="71.5" text="Ticket Fare" />
-                  <TableColumn prefWidth="98.5" text="Subsidized Fare" />
+                  <TableColumn prefWidth="98.5" text="Subsidized Amount" />
                   <TableColumn prefWidth="66.5" text="Total Fare" />
                   <TableColumn prefWidth="130.5" text="Customer's Name" />
                   <TableColumn prefWidth="82.0" text="Idenfication" />
