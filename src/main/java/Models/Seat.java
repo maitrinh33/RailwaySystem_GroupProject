@@ -1,33 +1,37 @@
 package Models;
 
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.StringProperty;
-
-import java.util.Collections;
-import java.util.List;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 
 public class Seat {
-private final String id; // Unique identifier for the seat
-private final String trainId; // ID of the train this seat belongs to
-private final StringProperty classType; // Class type (e.g., Sleeper, AC)
-private final IntegerProperty coachNumber; // Coach number
-private final IntegerProperty totalSeats; // Total number of seats in the coach
-private final IntegerProperty availableSeats; // Number of available seats
-private final List<String> seatIds; // List of individual seat IDs
+    private final String id; // Unique identifier for the seat (e.g., A1, B2)
+    private String trainId; // ID of the train this seat belongs to
+    private final StringProperty coachNumber; // Coach number
+    private final StringProperty classType; // Class type (e.g., Sleeper, AC)
+    private final StringProperty seatNumber; // Seat number (e.g., 1, 2, 3)
+    private final BooleanProperty isAvailable; // Availability status of the individual seat
 
-// Constructor
-public Seat(String id, String trainId, int coachNumber, String classType, 
-            int totalSeats, int availableSeats, List<String> seatIds) {
-    this.id = id;
-    this.trainId = trainId;
-    this.coachNumber = new SimpleIntegerProperty(coachNumber);
-    this.classType = new SimpleStringProperty(classType);
-    this.totalSeats = new SimpleIntegerProperty(totalSeats);
-    this.availableSeats = new SimpleIntegerProperty(availableSeats);
-    this.seatIds = seatIds != null ? seatIds : Collections.emptyList(); // Initialize to empty list if null
-}
+    // Constructor
+    public Seat(String id, String trainId, String coachNumber, String classType, String seatNumber, boolean isAvailable) {
+        this.id = id;
+        this.trainId = trainId;
+        this.coachNumber = new SimpleStringProperty(coachNumber);
+        this.classType = new SimpleStringProperty(classType);
+        this.seatNumber = new SimpleStringProperty(seatNumber);
+        this.isAvailable = new SimpleBooleanProperty(isAvailable);
+    }
+
+    // Simplified Constructor for Tickets
+    public Seat(String seatNumber, String classType, String coachNumber) {
+        this.id = null; // Not needed for tickets
+        this.trainId = null; // Not needed for tickets
+        this.coachNumber = new SimpleStringProperty(coachNumber);
+        this.classType = new SimpleStringProperty(classType);
+        this.seatNumber = new SimpleStringProperty(seatNumber);
+        this.isAvailable = new SimpleBooleanProperty(true); // Default
+    }
 
     // Getters
     public String getId() {
@@ -38,7 +42,7 @@ public Seat(String id, String trainId, int coachNumber, String classType,
         return trainId;
     }
 
-    public int getCoachNumber() {
+    public String getCoachNumber() {
         return coachNumber.get();
     }
 
@@ -46,20 +50,25 @@ public Seat(String id, String trainId, int coachNumber, String classType,
         return classType.get();
     }
 
-    public int getTotalSeats() {
-        return totalSeats.get();
+    public String getSeatNumber() {
+        return seatNumber.get();
     }
 
-    public int getAvailableSeats() {
-        return availableSeats.get();
+    public boolean isAvailable() {
+        return isAvailable.get();
     }
 
-    public List<String> getSeatIds() {
-        return Collections.unmodifiableList(seatIds); // Return an unmodifiable list
+    // Setters
+    public void setAvailable(boolean available) {
+        isAvailable.set(available);
+    }
+
+    public void setTrainId(String trainId) {
+        this.trainId = trainId;
     }
 
     // Properties for JavaFX binding
-    public IntegerProperty coachNumberProperty() {
+    public StringProperty coachNumberProperty() {
         return coachNumber;
     }
 
@@ -67,11 +76,28 @@ public Seat(String id, String trainId, int coachNumber, String classType,
         return classType;
     }
 
-    public IntegerProperty totalSeatsProperty() {
-        return totalSeats;
+    public StringProperty seatNumberProperty() {
+        return seatNumber;
     }
 
-    public IntegerProperty availableSeatsProperty() {
-        return availableSeats;
+    public BooleanProperty isAvailableProperty() {
+        return isAvailable;
+    }
+
+    // Additional helper methods
+    public boolean isSeatAvailable() {
+        return isAvailable.get();
+    }
+
+    @Override
+    public String toString() {
+        return "Seat{" +
+                "id=" + id +
+                ", trainId='" + trainId + '\'' +
+                ", coachNumber='" + coachNumber.get() + '\'' +
+                ", classType='" + classType.get() + '\'' +
+                ", seatNumber='" + seatNumber.get() + '\'' +
+                ", isAvailable=" + isAvailable.get() +
+                '}';
     }
 }

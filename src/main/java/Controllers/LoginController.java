@@ -73,7 +73,7 @@ public class LoginController {
     private boolean validateLogin(String username, String password) {
         String url = "jdbc:mysql://localhost:3306/railway_system"; // Your database URL
         String dbUsername = "root";  // MySQL username
-        String dbPassword = "3005";  // MySQL password
+        String dbPassword = "3005";  
 
         String sql = "SELECT * FROM users WHERE username = ?";
 

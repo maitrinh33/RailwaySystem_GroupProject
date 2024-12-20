@@ -8,11 +8,20 @@ import javafx.stage.Stage;
 import javafx.scene.layout.AnchorPane;
 import java.io.IOException;
 import static javafx.application.Application.launch;
+import javafx.fxml.FXML;
 
 public class TrainManagementSystem extends Application {
 
-    private boolean isSidebarLoaded = false;  // Flag to track if the sidebar is already loaded
+    private boolean isSidebarLoaded = true;  // Flag to track if the sidebar is already loaded
+    @FXML
+    private SidebarController sidebarController;
+    @FXML
+    private BookTicketController bookTicketController; // Reference to your BookTicketController
 
+    @FXML
+    public void initialize() {
+        sidebarController.setBookTicketController(bookTicketController); // Pass the correct instance
+    }
     @Override
     public void start(Stage primaryStage) {
         try {
@@ -55,13 +64,14 @@ public class TrainManagementSystem extends Application {
                 primaryStage.setTitle("Train Management System");
                 primaryStage.show();
 
-                // Set up any controller logic if needed
-                SidebarController sidebarController = mainLoader.getController();
-                // Assuming you have a method to handle loading the content (Dashboard, etc.)
-                sidebarController.navigateToDashboard(null);  // Example of loading a view into the main pane
+            // Get the SidebarController and set the BookTicketController
+            sidebarController = mainLoader.getController();
+            bookTicketController = new BookTicketController(); // Create instance
+            sidebarController.setBookTicketController(bookTicketController); // Pass it to sidebar
 
-                // Mark the sidebar as loaded
-                isSidebarLoaded = true;
+            // Load the initial dashboard or other content
+            sidebarController.navigateToDashboard(null);
+            isSidebarLoaded = true;
 
             } catch (IOException e) {
                 System.err.println("Error loading FXML file: " + e.getMessage());

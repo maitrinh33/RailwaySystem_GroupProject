@@ -6,7 +6,6 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -17,9 +16,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="856.0" prefWidth="1552.0" styleClass="center-pane" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.BookTicketController">
+<AnchorPane prefHeight="856.0" prefWidth="1589.0" styleClass="center-pane" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.BookTicketController">
    <children>
-      <AnchorPane layoutX="14.0" layoutY="57.0" prefHeight="767.0" prefWidth="340.0" stylesheets="@style.css">
+      <AnchorPane layoutX="14.0" layoutY="57.0" prefHeight="752.0" prefWidth="340.0" stylesheets="@style.css">
          <styleClass>
             <String fx:value="white-bg" />
             <String fx:value="shadow" />
@@ -85,13 +84,13 @@
                         <Font name="Century Gothic Bold" size="12.0" />
                      </font>
                   </Label>
-                  <TextField styleClass="combobox" stylesheets="@style.css" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                  <TextField fx:id="customerNameField" styleClass="combobox" stylesheets="@style.css" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                   <Label prefHeight="18.0" prefWidth="123.0" text="(10) Idenfication" GridPane.rowIndex="9">
                      <font>
                         <Font name="Century Gothic Bold" size="12.0" />
                      </font>
                   </Label>
-                  <TextField styleClass="combobox" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                  <TextField fx:id="passportField" styleClass="combobox" GridPane.columnIndex="1" GridPane.rowIndex="9" />
                   <ComboBox fx:id="classType" editable="true" prefHeight="27.0" prefWidth="195.0" promptText="Choose" styleClass="combobox" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                   <ComboBox fx:id="trainName" editable="true" prefHeight="27.0" prefWidth="195.0" promptText="Choose" styleClass="combobox" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <ComboBox fx:id="departureStation" editable="true" prefHeight="27.0" prefWidth="195.0" promptText="Choose" styleClass="combobox" GridPane.columnIndex="1" GridPane.rowIndex="2" />
@@ -102,52 +101,34 @@
                         <Font name="Century Gothic Bold" size="12.0" />
                      </font>
                   </Label>
-                  <ComboBox fx:id="ticketType" prefHeight="27.0" prefWidth="195.0" promptText="Adult" styleClass="combobox" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                  <ComboBox fx:id="ticketTypeComboBox" editable="true" prefHeight="27.0" prefWidth="195.0" promptText="Select" styleClass="combobox" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                </children>
             </GridPane>
-            <Button layoutX="204.0" layoutY="632.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="123.0" styleClass="btn_add" text="DELETE">
+            <Button fx:id="deleteButton" layoutX="204.0" layoutY="632.0" mnemonicParsing="false" onAction="#handleDeleteButtonAction" prefHeight="35.0" prefWidth="123.0" styleClass="btn_add" text="DELETE">
                <font>
                   <Font name="Century Gothic Bold" size="12.0" />
                </font>
             </Button>
-            <Button layoutX="12.0" layoutY="632.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="123.0" styleClass="btn_add" text="ADD">
+            <Button fx:id="addButton" layoutX="12.0" layoutY="632.0" mnemonicParsing="false" onAction="#addTicket" prefHeight="35.0" prefWidth="123.0" styleClass="btn_add" text="ADD">
                <font>
                   <Font name="Century Gothic Bold" size="12.0" />
                </font>
             </Button>
-            <Button layoutX="12.0" layoutY="688.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="123.0" styleClass="btn_add" text="UPDATE">
+            <Button fx:id="updateButton" layoutX="12.0" layoutY="688.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="123.0" styleClass="btn_add" text="UPDATE">
                <font>
                   <Font name="Century Gothic Bold" size="12.0" />
                </font>
             </Button>
-            <Button layoutX="204.0" layoutY="688.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="123.0" styleClass="btn_add" text="CLEAR">
+            <Button fx:id="clearButton" layoutX="204.0" layoutY="688.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="123.0" styleClass="btn_add" text="CLEAR">
                <font>
                   <Font name="Century Gothic Bold" size="12.0" />
                </font>
             </Button>
          </children>
       </AnchorPane>
-      <ScrollPane layoutX="367.0" prefHeight="627.0" prefWidth="1156.0">
+      <ScrollPane layoutX="367.0" prefHeight="613.0" prefWidth="1156.0">
          <content>
-            <TableView prefHeight="624.0" prefWidth="1154.0" styleClass="shadow" stylesheets="@style.css">
-              <columns>
-                <TableColumn prefWidth="42.0" text="ID" />
-                  <TableColumn prefWidth="61.5" text="TicketID" />
-                <TableColumn prefWidth="98.0" text="Departure Date" />
-                  <TableColumn prefWidth="48.5" text="Train" />
-                  <TableColumn prefWidth="56.0" text="Route" />
-                  <TableColumn prefWidth="69.0" text="Coach" />
-                  <TableColumn prefWidth="54.0" text="Seat" />
-                  <TableColumn prefWidth="76.0" text="Class" />
-                  <TableColumn prefWidth="84.0" text="Ticket Type" />
-                  <TableColumn prefWidth="71.5" text="Ticket Fare" />
-                  <TableColumn prefWidth="98.5" text="Subsidized Amount" />
-                  <TableColumn prefWidth="66.5" text="Total Fare" />
-                  <TableColumn prefWidth="130.5" text="Customer's Name" />
-                  <TableColumn prefWidth="82.0" text="Idenfication" />
-                  <TableColumn prefWidth="112.0" text="Reservation Time" />
-              </columns>
-            </TableView>
+            <TableView fx:id="ticketTableView" editable="true" prefHeight="610.0" prefWidth="1154.0" styleClass="shadow" stylesheets="@style.css" />
          </content>
       </ScrollPane>
       <Button fx:id="btnOpenCheckTicket" layoutX="14.0" mnemonicParsing="false" onAction="#openCheckTicket" prefHeight="47.0" prefWidth="340.0" styleClass="btn_checkticket" stylesheets="@style.css" text="CHECK TICKET AVAIBILITY">
@@ -162,7 +143,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <AnchorPane layoutX="367.0" layoutY="632.0" prefHeight="190.0" prefWidth="1156.0">
+      <AnchorPane layoutX="367.0" layoutY="619.0" prefHeight="190.0" prefWidth="1156.0">
          <children>
             <AnchorPane layoutX="14.0" layoutY="11.0" prefHeight="168.0" prefWidth="370.0" styleClass="sales_pane" stylesheets="@style.css">
                <children>
@@ -187,21 +168,21 @@
                               <Font name="Century Gothic Bold" size="14.0" />
                            </font>
                         </Label>
-                        <TextField styleClass="combobox" GridPane.columnIndex="1" />
-                        <TextField styleClass="combobox" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="totalTicketsField" editable="false" styleClass="combobox" GridPane.columnIndex="1" />
+                        <TextField fx:id="totalMoneyField" editable="false" styleClass="combobox" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <Label prefHeight="18.0" prefWidth="97.0" text="Tax" GridPane.rowIndex="1">
                            <font>
                               <Font name="Century Gothic Bold" size="14.0" />
                            </font>
                         </Label>
-                        <TextField styleClass="combobox" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField editable="false" styleClass="combobox" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="804.0" layoutY="11.0" prefHeight="168.0" prefWidth="326.0" styleClass="sales_pane" stylesheets="@style.css">
+            <AnchorPane layoutX="802.0" layoutY="11.0" prefHeight="168.0" prefWidth="340.0" styleClass="sales_pane" stylesheets="@style.css">
                <children>
-                  <GridPane layoutX="16.0" layoutY="28.0" prefHeight="47.0" prefWidth="294.0">
+                  <GridPane layoutX="16.0" layoutY="28.0" prefHeight="47.0" prefWidth="315.0">
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="175.5" minWidth="10.0" prefWidth="158.0" />
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="227.5" minWidth="10.0" prefWidth="136.0" />
@@ -210,7 +191,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="39.0" prefWidth="131.0" styleClass="btn_add" text="PAY">
+                        <Button fx:id="payButton" mnemonicParsing="false" onAction="#handlePayment" prefHeight="39.0" prefWidth="131.0" styleClass="btn_add" text="PAY">
                            <font>
                               <Font name="Century Gothic Bold" size="12.0" />
                            </font>
@@ -222,14 +203,14 @@
                         </Button>
                      </children>
                   </GridPane>
-                  <Button layoutX="16.0" layoutY="99.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="294.0" styleClass="btn_add" text="PRINT">
+                  <Button layoutX="16.0" layoutY="99.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="309.0" styleClass="btn_add" text="PRINT">
                      <font>
                         <Font name="Century Gothic Bold" size="12.0" />
                      </font>
                   </Button>
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="411.0" layoutY="11.0" prefHeight="168.0" prefWidth="370.0" styleClass="sales_pane" stylesheets="@style.css">
+            <AnchorPane layoutX="407.0" layoutY="11.0" prefHeight="168.0" prefWidth="370.0" styleClass="sales_pane" stylesheets="@style.css">
                <children>
                   <GridPane layoutX="23.0" layoutY="15.0" prefHeight="131.0" prefWidth="326.0">
                      <columnConstraints>
@@ -252,13 +233,13 @@
                               <Font name="Century Gothic Bold" size="14.0" />
                            </font>
                         </Label>
-                        <TextField styleClass="combobox" text="\$ 2" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="changeField" styleClass="combobox" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <Label prefHeight="18.0" prefWidth="97.0" text="Cash" GridPane.rowIndex="1">
                            <font>
                               <Font name="Century Gothic Bold" size="14.0" />
                            </font>
                         </Label>
-                        <TextField styleClass="combobox" text="\$50" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="cashField" styleClass="combobox" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <ComboBox editable="true" prefHeight="27.0" prefWidth="195.0" promptText="Cash" styleClass="combobox" GridPane.columnIndex="1" />
                      </children>
                   </GridPane>

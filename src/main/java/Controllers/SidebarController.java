@@ -4,7 +4,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.control.Button;
 import java.io.IOException;
 import java.util.logging.Logger;
@@ -28,15 +27,25 @@ public class SidebarController {
     private Button btnReports;
     
     private BorderPane mainPane;  // This will hold the center content
-
-    // Setter to inject the main pane from the parent controller
-    public void setMainPane(BorderPane mainPane) {
-        this.mainPane = mainPane;
-        loadContent("/view/Dashboard.fxml");  // Load the default view
-    }
+    private BookTicketController bookTicketController; // Reference to your BookTicketController
 
     private static final Logger LOGGER = Logger.getLogger(SidebarController.class.getName());
 
+    public void setMainPane(BorderPane mainPane) {
+        this.mainPane = mainPane;
+        LOGGER.info("Main pane set successfully.");
+    }
+    
+    public BorderPane getMainPane() {
+        return mainPane;
+    }
+    
+    // Setter to inject the BookTicketController
+    public void setBookTicketController(BookTicketController bookTicketController) {
+        this.bookTicketController = bookTicketController;
+        LOGGER.log(Level.INFO, "BookTicketController set successfully: {0}", bookTicketController);
+    }
+    
     // This function loads the content dynamically in the center pane
     private void loadContent(String fxmlPath) {
         if (mainPane == null) {
@@ -66,10 +75,33 @@ public class SidebarController {
         loadContent("/view/Dashboard.fxml");
     }
 
-    @FXML
-    public void navigateToCheckTicket(ActionEvent event) {
-        loadContent("/view/CheckTicket.fxml");
+@FXML
+public void navigateToCheckTicket(ActionEvent event) {
+    try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/CheckTicket.fxml"));
+        AnchorPane newContent = loader.load();
+
+        // Get the controller and set the BookTicketController
+        CheckTicketController checkTicketController = loader.getController();
+        checkTicketController.setBookTicketController(bookTicketController);
+        checkTicketController.setOpenedFromSidebar(true); // Indicate opened from sidebar
+        // Log for debugging
+        if (checkTicketController.getBookTicketController() == null) {
+            LOGGER.severe("BookTicketController is null after setting.");
+        }
+
+        // Wrap the content in a ScrollPane
+        ScrollPane scrollPane = new ScrollPane(newContent);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setFitToHeight(true);
+
+        // Set the new content in the main pane
+        mainPane.setCenter(scrollPane);
+        LOGGER.info("Navigated to CheckTicket view successfully.");
+    } catch (IOException e) {
+        LOGGER.log(Level.SEVERE, "Failed to load CheckTicket view", e);
     }
+}
 
     @FXML
     public void navigateToBookTicket(ActionEvent event) {
@@ -93,6 +125,6 @@ public class SidebarController {
 
     // Initialization method to handle any necessary setup
     public void initialize() {
-        // This method can be used for additional setup if needed.
+        LOGGER.info("SidebarController initialized.");
     }
 }

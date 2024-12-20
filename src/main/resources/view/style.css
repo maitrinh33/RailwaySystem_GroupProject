@@ -20,7 +20,7 @@
     -fx-border-color: D7D7D7;
     -fx-background-color: rgba(240, 248, 255, 0.9); 
     -fx-background-radius: 50px; 
-    -fx-padding: 10; /* Add some padding for a cleaner look */
+    -fx-padding: 10; 
     -fx-cursor: hand;
     -fx-text-fill: #333; 
 }
@@ -56,6 +56,10 @@
 .btn_signup:hover {
     -fx-background-color: rgba(173, 216, 230, 0.2); 
     -fx-text-fill: #353A56; 
+}
+
+.bg-header{
+    -fx-background-color: #fff;
 }
 
 .search_box{
@@ -113,37 +117,50 @@
 }
 
 .card_1{
-    -fx-background-color:#748CF1;
+    -fx-background-color: linear-gradient(to right, #FE7A36, #FFBD73, #FFF5CD);
     -fx-border-width: 2px 2px 2px 2px;
     -fx-border-radius: 20px;
     -fx-background-radius: 20px;
-    -fx-border-style: solid;
-    -fx-border-color: #748CF1;
 }
 
 .card_2{
-    -fx-background-color:#ffffff;
+    -fx-background-color: linear-gradient(to right, #ace5ff, #c0e6ff, rgba(173, 216, 230, 0.5));
+    -fx-border-width: 2px 2px 2px 2px;
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+}
+
+.card_4{
+    -fx-background-color: linear-gradient(to top, #FF8383, #ffb3b3, #ffe6e6);
+    -fx-border-width: 2px 2px 2px 2px;
+    -fx-border-radius: 16px;
+    -fx-background-radius: 16px;
+}
+
+.card_3{
+    -fx-background-color: linear-gradient(to right, FB4141, #FF8383, #FBB4A5);
+    -fx-border-width: 2px 2px 2px 2px;
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+}
+
+.card_5{
+    -fx-background-color: linear-gradient(to top, #07173F, #6780e2, #92a4ea);;
+    -fx-border-width: 2px 2px 2px 2px;
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+}
+
+.shadow_light{
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 5,0,0,0);
+}
+
+.pane_1111{
+    -fx-background-color:#353A56;
     -fx-border-width: 2px 2px 2px 2px;
     -fx-border-radius: 16px;
     -fx-background-radius: 16px;
     -fx-border-style: solid;
-    -fx-border-color: #ffffff;
-}
-.card_3{
-    -fx-background-color:#FD9999;
-    -fx-border-width: 2px 2px 2px 2px;
-    -fx-border-radius: 16px;
-    -fx-background-radius: 16px;
-     -fx-border-style: solid;
-    -fx-border-color: #FD9999;
-    
-}
-.pane_1111{
-     -fx-background-color:#353A56;
-    -fx-border-width: 2px 2px 2px 2px;
-    -fx-border-radius: 16px;
-    -fx-background-radius: 16px;
-     -fx-border-style: solid;
     -fx-border-color: #353A56;
 }
 
@@ -179,6 +196,7 @@
     -fx-background-color: #fff;
     -fx-background-radius: 8px;
 }
+
 .sales_pane{
     -fx-border-radius: 8px; 
     -fx-border-color: D7D7D7;
@@ -194,7 +212,7 @@
 }
 
 .btn_checkticket:hover {
-    -fx-background-color: #03346E; 
+    -fx-background-color: #121843; 
     -fx-text-fill: white; 
 }
 
@@ -221,6 +239,21 @@
 .btn_SeatInventory:hover {
     -fx-background-color: #748CF1; 
     -fx-text-fill: white; 
+}
+
+.btn_clear {
+    -fx-background-color: #fff;
+    -fx-background-radius: 50px;
+    -fx-text-fill: black; 
+    -fx-cursor:hand;
+    -fx-border-style: solid;
+    -fx-border-color: grey;
+    -fx-border-radius: 20px;
+}
+
+.btn_clear:hover {
+    -fx-background-color: whitesmoke; 
+    -fx-text-fill: black; 
 }
 
 .btn_search {
@@ -250,7 +283,7 @@
 }
 
 .table-view{
--fx-border-color: linear-gradient(to bottom right, #03346E, #353A56);
+-fx-border-color: linear-gradient(to top, #353A56, #03346E);
 -fx-border-width: 2px;
 -fx-padding: 0px;
 -fx-border-radius: 10px;
@@ -260,7 +293,7 @@
 -fx-alignment: CENTER;
 }
 .table-view .column-header-background{
--fx-background-color: linear-gradient(to bottom right,#353A56,#03346E);
+-fx-background-color: #353A56;
 -fx-background-radius: 8px 8px 0px 0px;
 -fx-background-insets: 0 0 0 0;
 }
@@ -280,3 +313,21 @@
 .titled-pane:focused {
 -fx-border-color: #2980b9; /* Optional border when focused */
 }
+
+.chart-bar.series0 {
+    -fx-bar-fill: #FE7A36; /* Revenue */
+    -fx-background-radius: 0; /* No rounded corners for Revenue */
+}
+
+.chart-bar.series1 {
+    -fx-bar-fill: #FFC55A; /* Profit */
+    -fx-background-radius: 10 10 0 0; /* Rounded top-left and top-right corners for Profit */
+}
+
+.chart {
+    -fx-padding: 10;
+    -fx-background-radius: 10; /* Top-left and top-right corners */
+    -fx-background-color: white; /* Optional: Background color */
+    -fx-border-radius: 10 10 10 10;
+}
+

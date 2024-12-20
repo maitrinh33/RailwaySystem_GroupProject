@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.chart.BarChart?>
+<?import java.lang.String?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.StackedBarChart?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Blend?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -14,155 +16,150 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="920.0" prefWidth="1129.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.CheckTicketController">
+<AnchorPane id="AnchorPane" prefHeight="818.0" prefWidth="1129.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.DashboardController">
    <children>
-      <Pane layoutY="-6.0" prefHeight="926.0" prefWidth="1129.0" styleClass="center-pane" stylesheets="@style.css">
+      <Pane layoutY="-6.0" prefHeight="822.0" prefWidth="1129.0" styleClass="center-pane" stylesheets="@style.css">
          <children>
-            <Pane layoutY="7.0" prefHeight="56.0" prefWidth="1129.0" styleClass="white-bg">
+            <Pane layoutY="7.0" prefHeight="62.0" prefWidth="1129.0" styleClass="bg-header">
                <children>
                   <Pane layoutX="62.0" layoutY="6.0" prefHeight="45.0" prefWidth="377.0">
                      <children>
-                        <ImageView fitHeight="39.0" fitWidth="46.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="44.0" fitWidth="46.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../dashboard/9200885.png" />
                            </image>
                         </ImageView>
-                        <Label layoutX="55.0" layoutY="1.0" prefHeight="43.0" prefWidth="308.0" text="Railway Management">
+                        <Label layoutX="61.0" layoutY="3.0" prefHeight="44.0" prefWidth="290.0" text="Railway Management">
                            <font>
-                              <Font name="Imprint MT Shadow" size="32.0" />
+                              <Font name="STHupo" size="29.0" />
                            </font>
                         </Label>
                      </children>
                   </Pane>
                </children>
             </Pane>
-            <Pane fx:id="pane_1" layoutX="57.0" layoutY="192.0" prefHeight="258.0" prefWidth="171.0" styleClass="card_1" stylesheets="@style.css">
+            <Pane fx:id="pane_1" layoutX="247.0" layoutY="196.0" prefHeight="236.0" prefWidth="171.0" styleClass="card_1" stylesheets="@style.css">
                <children>
-                  <ImageView fitHeight="100.0" fitWidth="80.0" layoutX="14.0" layoutY="143.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="100.0" fitWidth="80.0" layoutX="14.0" layoutY="143.0" pickOnBounds="true" preserveRatio="true" styleClass="slide">
                      <image>
                         <Image url="@../dashboard/exchange-rate.png" />
                      </image>
                   </ImageView>
-                  <Text fill="WHITE" layoutX="14.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Revenue" wrappingWidth="142.4830722808838">
+                  <Text fill="WHITE" layoutX="14.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Revenue" wrappingWidth="128.4830722808838">
                      <font>
-                        <Font name="Century Gothic Bold" size="18.0" />
+                        <Font name="Century Gothic Bold" size="22.0" />
                      </font>
                   </Text>
-                  <Text fill="WHITE" layoutX="14.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\$ 0.0" wrappingWidth="135.4830722808838">
+                  <Label fx:id="totalRevenueLabel" layoutX="14.0" layoutY="72.0" styleClass="fade" text="0" textFill="WHITE">
                      <font>
-                        <Font name="Century Gothic Bold" size="36.0" />
+                        <Font name="Century Gothic Bold" size="32.0" />
                      </font>
-                  </Text>
+                  </Label>
                </children>
             </Pane>
-            <Label layoutX="57.0" layoutY="82.0" prefHeight="44.0" prefWidth="279.0" text="Hello, maitrinh! ">
+            <Label layoutX="58.0" layoutY="93.0" prefHeight="52.0" prefWidth="290.0" styleClass="fade" text="Hello, maitrinh! ">
                <font>
-                  <Font name="Edwardian Script ITC" size="50.0" />
+                  <Font name="Gabriola" size="50.0" />
                </font>
             </Label>
-            <Pane fx:id="pane_11" layoutX="245.0" layoutY="192.0" prefHeight="258.0" prefWidth="171.0" styleClass="card_2" stylesheets="@style.css">
+            <Pane fx:id="pane_11" layoutX="57.0" layoutY="196.0" prefHeight="236.0" prefWidth="171.0" styleClass="card_5" stylesheets="@style.css">
                <children>
-                  <ImageView fitHeight="100.0" fitWidth="80.0" layoutX="14.0" layoutY="143.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="80.0" fitWidth="73.0" layoutX="14.0" layoutY="143.0" pickOnBounds="true" preserveRatio="true" styleClass="slide">
                      <image>
-                        <Image url="@../dashboard/5829091.png" />
+                        <Image url="@../dashboard/ticket.png" />
                      </image>
                   </ImageView>
-                  <Text layoutX="14.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tickets Sold" wrappingWidth="142.4830722808838">
+                  <Text fill="WHITE" layoutX="14.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tickets Sold" wrappingWidth="142.4830722808838">
                      <font>
-                        <Font name="Century Gothic Bold" size="18.0" />
+                        <Font name="Century Gothic Bold" size="22.0" />
                      </font>
                   </Text>
-                  <Text layoutX="14.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="135.4830722808838">
+                  <Label fx:id="totalTicketsLabel" layoutX="14.0" layoutY="72.0" styleClass="fade" text="0" textFill="WHITE">
                      <font>
-                        <Font name="Century Gothic Bold" size="36.0" />
+                        <Font name="Century Gothic Bold" size="32.0" />
                      </font>
-                  </Text>
+                  </Label>
                </children>
             </Pane>
-            <Text fill="#063377" layoutX="57.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Today" wrappingWidth="92.98307228088379">
+            <Text fill="#063377" layoutX="59.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Today" wrappingWidth="92.98307228088379">
                <font>
                   <Font name="Century Gothic" size="14.0" />
                </font>
             </Text>
-            <Pane fx:id="pane_111" layoutX="434.0" layoutY="192.0" prefHeight="258.0" prefWidth="171.0" styleClass="card_1" stylesheets="@style.css">
+            <Pane fx:id="pane_111" layoutX="432.0" layoutY="196.0" prefHeight="236.0" prefWidth="171.0" styleClass="card_5" stylesheets="@style.css">
                <children>
-                  <ImageView fitHeight="100.0" fitWidth="80.0" layoutY="146.0" pickOnBounds="true" preserveRatio="true">
+                  <Text fill="WHITE" layoutX="14.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ticket Returns" wrappingWidth="142.4830722808838">
+                     <font>
+                        <Font name="Century Gothic Bold" size="20.0" />
+                     </font>
+                  </Text>
+                  <ImageView fitHeight="100.0" fitWidth="80.0" layoutX="14.0" layoutY="142.0" pickOnBounds="true" preserveRatio="true" styleClass="slide">
                      <image>
                         <Image url="@../dashboard/railway-station.png" />
                      </image>
                   </ImageView>
-                  <Text fill="WHITE" layoutX="14.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Train Departed" wrappingWidth="142.4830722808838">
+                  <Label layoutX="15.0" layoutY="75.0" styleClass="fade" text="0" textFill="WHITE">
                      <font>
-                        <Font name="Century Gothic Bold" size="18.0" />
+                        <Font name="Century Gothic Bold" size="32.0" />
                      </font>
-                  </Text>
-                  <Text fill="WHITE" layoutX="14.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="135.4830722808838">
-                     <font>
-                        <Font name="Century Gothic Bold" size="36.0" />
-                     </font>
-                  </Text>
+                  </Label>
                </children>
             </Pane>
-            <Pane fx:id="pane_1111" layoutX="809.0" layoutY="192.0" prefHeight="258.0" prefWidth="266.0" styleClass="card_1" stylesheets="@style.css">
+            <Pane fx:id="pane_1111" layoutX="807.0" layoutY="196.0" prefHeight="236.0" prefWidth="266.0" styleClass="card_2" stylesheets="@style.css">
                <children>
-                  <ImageView fitHeight="100.0" fitWidth="80.0" layoutX="14.0" layoutY="145.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="14.0" layoutY="145.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../dashboard/credit-card.png" />
                      </image>
+                     <styleClass>
+                        <String fx:value="shadow_light" />
+                        <String fx:value="slide" />
+                     </styleClass>
                   </ImageView>
-                  <Text fill="WHITE" layoutX="14.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Succesfull Transactions" wrappingWidth="221.9999999999999">
+                  <Text fill="WHITE" layoutX="11.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="shadow_light" text="Succesfull Transactions" wrappingWidth="244.0">
                      <font>
-                        <Font name="Century Gothic Bold" size="18.0" />
+                        <Font name="Century Gothic Bold" size="22.0" />
                      </font>
                   </Text>
-                  <Text fill="WHITE" layoutX="14.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="135.4830722808838">
+                  <Label fx:id="paymentLabel" layoutX="14.0" layoutY="72.0" styleClass="fade" text="0" textFill="WHITE">
                      <font>
-                        <Font name="Century Gothic Bold" size="36.0" />
+                        <Font name="Century Gothic Bold" size="32.0" />
                      </font>
-                  </Text>
+                  </Label>
                </children>
+               <effect>
+                  <Blend />
+               </effect>
             </Pane>
-            <Pane fx:id="pane_1112" layoutX="622.0" layoutY="192.0" prefHeight="258.0" prefWidth="171.0" styleClass="card_3" stylesheets="@style.css">
+            <Pane fx:id="pane_1112" layoutX="621.0" layoutY="196.0" prefHeight="236.0" prefWidth="171.0" styleClass="card_3" stylesheets="@style.css">
                <children>
-                  <ImageView fitHeight="100.0" fitWidth="80.0" layoutX="14.0" layoutY="146.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="100.0" fitWidth="80.0" layoutX="14.0" layoutY="146.0" pickOnBounds="true" preserveRatio="true" styleClass="slide">
                      <image>
-                        <Image url="@../dashboard/clock.png" />
+                        <Image url="@../dashboard/coins.png" />
                      </image>
                   </ImageView>
-                  <Text fill="WHITE" layoutX="14.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Train Delays" wrappingWidth="142.4830722808838">
+                  <Text fill="WHITE" layoutX="14.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="shadow_light" text="Profit" wrappingWidth="142.4830722808838">
                      <font>
-                        <Font name="Century Gothic Bold" size="18.0" />
+                        <Font name="Century Gothic Bold" size="20.0" />
                      </font>
                   </Text>
-                  <Text fill="WHITE" layoutX="14.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="135.4830722808838">
+                  <Label fx:id="profitLabel" layoutX="16.0" layoutY="74.0" styleClass="fade" text="0" textFill="WHITE">
                      <font>
-                        <Font name="Century Gothic Bold" size="36.0" />
+                        <Font name="Century Gothic Bold" size="32.0" />
                      </font>
-                  </Text>
+                  </Label>
                </children>
             </Pane>
-            <HBox layoutX="39.0" layoutY="482.0" prefHeight="388.0" prefWidth="1050.0">
-               <children>
-                  <BarChart fx:id="barChart" legendSide="TOP" prefHeight="388.0" prefWidth="557.0" title="Revenue Overview">
-                      <xAxis>
-                          <CategoryAxis side="BOTTOM" />
-                      </xAxis>
-                      <yAxis>
-                          <NumberAxis side="LEFT" />
-                      </yAxis>
-                  </BarChart>
-      
-                  <LineChart fx:id="lineChart" prefHeight="388.0" prefWidth="482.0" title="Ticket Sales">
-                      <xAxis>
-                          <CategoryAxis side="BOTTOM" />
-                      </xAxis>
-                      <yAxis>
-                          <NumberAxis side="LEFT" />
-                      </yAxis>
-                  </LineChart>
-               </children>
-            </HBox>
-            <Pane fx:id="most_inner_pane" layoutX="1012.0" layoutY="106.0" prefHeight="46.0" prefWidth="46.0" styleClass="most_inner_pane" stylesheets="@style.css">
+
+                  <LineChart fx:id="lineChart" layoutX="621.0" layoutY="469.0" prefHeight="319.0" prefWidth="453.0" title="Ticket Sales">
+                <xAxis>
+                    <CategoryAxis side="BOTTOM" />
+                </xAxis>
+                <yAxis>
+                    <NumberAxis prefHeight="275.0" prefWidth="30.0" side="LEFT" />
+                </yAxis>
+            </LineChart>
+            <Pane fx:id="most_inner_pane" layoutX="1026.0" layoutY="101.0" prefHeight="46.0" prefWidth="46.0" styleClass="most_inner_pane" stylesheets="@style.css">
                <children>
                   <ImageView fitHeight="29.0" fitWidth="63.0" layoutX="9.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -171,7 +168,7 @@
                   </ImageView>
                </children>
             </Pane>
-            <HBox alignment="CENTER" layoutX="745.0" layoutY="112.0" prefHeight="39.0" prefWidth="244.0" styleClass="search_box" stylesheets="@style.css">
+            <HBox alignment="CENTER" layoutX="768.0" layoutY="105.0" prefHeight="39.0" prefWidth="244.0" styleClass="search_box" stylesheets="@style.css">
                <children>
                   <TextField fx:id="Search" prefHeight="32.0" prefWidth="203.0" promptText="Type here to search" styleClass="transparent" stylesheets="@style.css">
                      <font>
@@ -185,6 +182,14 @@
                   </ImageView>
                </children>
             </HBox>
+            <StackedBarChart fx:id="revenueChart" layoutX="57.0" layoutY="469.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="319.0" prefWidth="548.0" title="Revenue Overview">
+               <xAxis>
+                  <CategoryAxis fx:id="revenueXAxis" label="Date" prefHeight="0.0" prefWidth="992.0" />
+               </xAxis>
+               <yAxis>
+                  <NumberAxis label="Amount" />
+               </yAxis>
+            </StackedBarChart>
          </children>
       </Pane>
    </children>

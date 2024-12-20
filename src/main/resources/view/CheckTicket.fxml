@@ -17,16 +17,16 @@
 
 <AnchorPane prefHeight="809.0" prefWidth="896.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.CheckTicketController">
    <children>
-      <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="809.0" prefWidth="1105.0" styleClass="center-pane" stylesheets="@style.css">
+      <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="853.0" prefWidth="1126.0" styleClass="center-pane" stylesheets="@style.css">
          <children>
-            <ScrollPane layoutX="54.0" layoutY="305.0" prefHeight="474.0" prefWidth="416.0">
+            <ScrollPane layoutX="54.0" layoutY="305.0" prefHeight="489.0" prefWidth="416.0" styleClass="transparent">
                <content>
-                  <TableView fx:id="trainTable" prefHeight="468.0" prefWidth="413.0" stylesheets="@style.css" />
+                  <TableView fx:id="trainTable" editable="true" prefHeight="483.0" prefWidth="413.0" stylesheets="@style.css" />
                </content>
             </ScrollPane>
-            <ScrollPane layoutX="535.0" layoutY="30.0" prefHeight="750.0" prefWidth="524.0">
+            <ScrollPane layoutX="535.0" layoutY="30.0" prefHeight="763.0" prefWidth="524.0" styleClass="transparent">
                <content>
-                  <TableView fx:id="seatTable" prefHeight="742.0" prefWidth="521.0" stylesheets="@style.css" />
+                  <TableView fx:id="seatTable" editable="true" prefHeight="759.0" prefWidth="521.0" stylesheets="@style.css" />
                </content>
             </ScrollPane>
             <GridPane alignment="BOTTOM_RIGHT" layoutX="54.0" layoutY="30.0" prefHeight="262.0" prefWidth="416.0">
@@ -66,8 +66,8 @@
                            </font>
                         </Label>
                         <DatePicker fx:id="departureDatePicker" prefHeight="27.0" prefWidth="235.0" styleClass="combobox" GridPane.columnIndex="1" />
-                        <ComboBox fx:id="departureStationComboBox" prefHeight="27.0" prefWidth="235.0" styleClass="combobox" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <ComboBox fx:id="arrivalStationComboBox" prefHeight="27.0" prefWidth="235.0" styleClass="combobox" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <ComboBox fx:id="departureStationComboBox" editable="true" prefHeight="27.0" prefWidth="235.0" styleClass="combobox" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <ComboBox fx:id="arrivalStationComboBox" editable="true" prefHeight="27.0" prefWidth="235.0" styleClass="combobox" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                      </children>
                   </GridPane>
                   <Button fx:id="searchButton" mnemonicParsing="false" onAction="#handleSearch" prefHeight="32.0" prefWidth="138.0" styleClass="btn_search" stylesheets="@style.css" text="Search" textAlignment="RIGHT" GridPane.rowIndex="1">

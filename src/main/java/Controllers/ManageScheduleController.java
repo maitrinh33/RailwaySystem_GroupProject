@@ -16,6 +16,7 @@ import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
 import java.util.function.Function;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -34,7 +35,13 @@ public class ManageScheduleController implements Initializable {
     private Button btnAdd, btnUpdate, btnDelete, btnClear;
 
     private final ObservableList<Schedule> scheduleList = FXCollections.observableArrayList();
-
+    
+    @FXML
+    private TextField Search;
+    
+    // Add this at the class level
+    private FilteredList<Schedule> filteredScheduleList;
+    
     private Schedule selectedSchedule = null;
 
     private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/railway_system"; 
@@ -60,14 +67,61 @@ public class ManageScheduleController implements Initializable {
             logger.log(Level.SEVERE, "Failed to load the FXML", e);
         }
     }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         setupTable();
         loadComboBoxData(); 
-        setupButtonActions(); // Initialize the button actions
-        loadSchedulesFromDatabase(); 
-    }
+        setupButtonActions(); 
+        loadSchedulesFromDatabase();
+        
+       // Initialize FilteredList
+        filteredScheduleList = new FilteredList<>(scheduleList, b -> true);
+        tableView.setItems(filteredScheduleList);
 
+        // Add listener to the Search TextField
+        Search.textProperty().addListener((observable, oldValue, newValue) -> {
+            filterTable(newValue);
+        });
+    }
+    
+    private void filterTable(String searchText) {
+        filteredScheduleList.setPredicate(schedule -> {
+            // If no search text, display all schedules
+            if (searchText == null || searchText.isEmpty()) {
+                return true;
+            }
+
+            // Compare schedule properties with the search text
+            String lowerCaseFilter = searchText.toLowerCase();
+            if(schedule.getId().toLowerCase().contains(lowerCaseFilter)) {
+                return true; // Match found
+            }
+            if (schedule.getTrainName().toLowerCase().contains(lowerCaseFilter)) {
+                return true; 
+            } else if (schedule.getRoute().toLowerCase().contains(lowerCaseFilter)) {
+                return true; 
+            } else if (schedule.getDepartureStation().toLowerCase().contains(lowerCaseFilter)) {
+                return true; 
+            } else if (schedule.getArrivalStation().toLowerCase().contains(lowerCaseFilter)) {
+                return true; 
+            } else if (schedule.getDepartureDate().toLowerCase().contains(lowerCaseFilter)) {
+                return true; 
+            } else if (schedule.getArrivalDate().toLowerCase().contains(lowerCaseFilter)) {
+                return true; 
+            } else if (schedule.getDepartureTime().toLowerCase().contains(lowerCaseFilter)) {
+                return true; 
+            } else if (schedule.getArrivalTime().toLowerCase().contains(lowerCaseFilter)) {
+                return true; 
+            } else if (schedule.getCapacity().toLowerCase().contains(lowerCaseFilter)) {
+                return true; 
+            } else if (schedule.getStatus().toLowerCase().contains(lowerCaseFilter)) {
+                return true; 
+            }
+            return false; 
+        });
+    }
+    
     // Helper method for creating columns dynamically
     private TableColumn<Schedule, String> createColumn(String title, Function<Schedule, StringProperty> property) {
         TableColumn<Schedule, String> column = new TableColumn<>(title);
