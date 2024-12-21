@@ -581,7 +581,7 @@ public class BookTicketController {
                 // Process each unpaid ticket
                 for (Ticket ticket : unpaidTickets) {
                     LocalDate departureDate = ticket.getDepartureDate();
-                    saveBookingData(paymentId, ticket, departureDate);
+                    saveBookingData(ticket, departureDate);
                     markSeatAsUnavailable(ticket.getSeat().getSeatNumber(), ticket.getSchedule().getTrainName());
                     System.out.println("Marking Seat as Unavailable: " + ticket.getSeat().getSeatNumber());
                     markTicketAsPaid(ticket.getTicketId());
@@ -730,37 +730,35 @@ private int getSeatId(String selectedSeat, String selectedTrainName, String sele
     }
 
     // Method to save booking data
-private void saveBookingData(int paymentId, Ticket lastTicket, LocalDate departureDate) {
-    String insertBookingSQL = "INSERT INTO booking (ticket_id, payment_id, customer_name, passport, payment_amount, booking_time, departure_date, train_name, seat_id, route, class_type, coach_number, seat_number) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private void saveBookingData(Ticket lastTicket, LocalDate departureDate) {
+        String insertBookingSQL = "INSERT INTO booking (ticket_id, customer_name, passport, payment_amount, booking_time, departure_date, train_name, seat_id, route, class_type, coach_number, seat_number) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-    try (Connection conn = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
-         PreparedStatement stmt = conn.prepareStatement(insertBookingSQL)) {
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
+             PreparedStatement stmt = conn.prepareStatement(insertBookingSQL)) {
 
 
-        // Save booking information
-        stmt.setString(1, lastTicket.getTicketId()); // Use the ticket ID
-        stmt.setInt(2, paymentId); // Use the payment ID
-        stmt.setString(3, lastTicket.getCustomerName()); // Customer name
-        stmt.setString(4, lastTicket.getPassport()); // Passport
-        stmt.setDouble(5, Double.parseDouble(totalMoneyField.getText())); // Ensure this field is valid
-        stmt.setTimestamp(6, Timestamp.valueOf(LocalDateTime.now())); // Booking time
-        stmt.setDate(7, Date.valueOf(departureDate)); // Departure date
-        stmt.setString(8, lastTicket.getSchedule().getTrainName());
-        stmt.setString(9, lastTicket.getSeat().getId()); // Seat ID
-        stmt.setString(10, lastTicket.getSchedule().getRoute()); // Route
-        stmt.setString(11, lastTicket.getSeat().getClassType()); // Class type
-        stmt.setString(12, lastTicket.getSeat().getCoachNumber()); // Seat number
-        stmt.setString(13, lastTicket.getSeat().getSeatNumber()); // Coach number
-        // Execute the insert
-        stmt.executeUpdate();
+            // Save booking information
+            stmt.setString(1, lastTicket.getTicketId()); // Use the ticket ID
+            stmt.setString(2, lastTicket.getCustomerName()); // Customer name
+            stmt.setString(3, lastTicket.getPassport()); // Passport
+            stmt.setDouble(4, Double.parseDouble(totalMoneyField.getText())); // Ensure this field is valid
+            stmt.setTimestamp(5, Timestamp.valueOf(LocalDateTime.now())); // Booking time
+            stmt.setDate(6, Date.valueOf(departureDate)); // Departure date
+            stmt.setString(7, lastTicket.getSchedule().getTrainName());
+            stmt.setString(8, lastTicket.getSeat().getId()); // Seat ID
+            stmt.setString(9, lastTicket.getSchedule().getRoute()); // Route
+            stmt.setString(10, lastTicket.getSeat().getClassType()); // Class type
+            stmt.setString(11, lastTicket.getSeat().getCoachNumber()); // Seat number
+            stmt.setString(12, lastTicket.getSeat().getSeatNumber()); // Coach number
+            // Execute the insert
+            stmt.executeUpdate();
 
-        // Mark the seat as unavailable
-        markSeatAsUnavailable(lastTicket.getSeat().getSeatNumber(), lastTicket.getSchedule().getTrainName());
+            // Mark the seat as unavailable
+            markSeatAsUnavailable(lastTicket.getSeat().getSeatNumber(), lastTicket.getSchedule().getTrainName());
 
-    } catch (SQLException e) {
-        showAlert("Error", "Failed to save booking: " + e.getMessage(), Alert.AlertType.ERROR);
+        } catch (SQLException e) {
+        }
     }
-}
     
     private void markSeatAsAvailable(String seatNumber, String coachNumber, String trainName) {
         String updateSeatSQL = "UPDATE seat SET is_available = true WHERE seat_number = ? AND coach_number = ? AND train_id IN (SELECT id FROM schedule WHERE train_name = ?)";

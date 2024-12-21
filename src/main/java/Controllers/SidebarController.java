@@ -24,6 +24,8 @@ public class SidebarController {
     @FXML
     private Button btnBookingHistory;
     @FXML
+    private Button btnReturnTicket;
+    @FXML
     private Button btnReports;
     
     private BorderPane mainPane;  // This will hold the center content
@@ -117,7 +119,11 @@ public void navigateToCheckTicket(ActionEvent event) {
     public void navigateToBookingHistory(ActionEvent event) {
         loadContent("/view/BookingHistory.fxml");
     }
-
+    @FXML
+    public void navigateToReturnTicket(ActionEvent event) {
+        loadContent("/view/ReturnTicket.fxml");
+    }
+    
     @FXML
     public void navigateToReports(ActionEvent event) {
         loadContent("/view/Reports.fxml");

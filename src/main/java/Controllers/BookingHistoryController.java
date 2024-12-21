@@ -37,9 +37,6 @@ public class BookingHistoryController {
         TableColumn<Booking, String> ticketIdColumn = new TableColumn<>("Ticket ID");
         ticketIdColumn.setCellValueFactory(new PropertyValueFactory<>("ticketId"));
 
-        TableColumn<Booking, Integer> paymentIdColumn = new TableColumn<>("Payment ID");
-        paymentIdColumn.setCellValueFactory(new PropertyValueFactory<>("paymentId"));
-
         TableColumn<Booking, String> customerNameColumn = new TableColumn<>("Customer Name");
         customerNameColumn.setCellValueFactory(new PropertyValueFactory<>("customerName"));
 
@@ -72,10 +69,31 @@ public class BookingHistoryController {
 
         TableColumn<Booking, String> statusColumn = new TableColumn<>("Status");
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
+        
+        // Set a custom cell factory for the status column
+        statusColumn.setCellFactory(column -> new TableCell<Booking, String>() {
+            @Override
+            protected void updateItem(String status, boolean empty) {
+                super.updateItem(status, empty);
+                if (empty || status == null) {
+                    setText(null);
+                    setStyle("");
+                } else {
+                    setText(status);
+                    // Set text color based on status value
+                    switch (status) {
+                        case "Confirmed" -> setTextFill(javafx.scene.paint.Color.LIGHTGREEN);
+                        case "Returned" -> setTextFill(javafx.scene.paint.Color.RED);
+                        case "Cancelled" -> setTextFill(javafx.scene.paint.Color.ORANGE);
+                        default -> setTextFill(javafx.scene.paint.Color.BLACK); // Default color
+                    }
+                }
+            }
+        });
 
         // Add columns to the table
         bookingTable.getColumns().addAll(
-                bookingIdColumn, ticketIdColumn, paymentIdColumn, customerNameColumn, passportColumn, 
+                bookingIdColumn, ticketIdColumn,customerNameColumn, passportColumn, 
                 paymentAmountColumn, bookingTimeColumn, departureDateColumn, trainNameColumn, 
                 routeColumn, classTypeColumn, seatNumberColumn, coachNumberColumn, statusColumn
         );
@@ -140,7 +158,6 @@ public class BookingHistoryController {
                 Booking booking = new Booking(
                         rs.getInt("booking_id"),
                         rs.getString("ticket_id"),
-                        rs.getInt("payment_id"),
                         rs.getString("customer_name"),
                         rs.getString("passport"),
                         rs.getDouble("payment_amount"),

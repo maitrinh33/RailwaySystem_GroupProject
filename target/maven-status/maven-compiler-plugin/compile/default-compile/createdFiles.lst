@@ -2,6 +2,8 @@ Controllers\DashboardController.class
 Models\Booking.class
 Models\Subsidy.class
 Controllers\SidebarController.class
+Controllers\BookingHistoryController$1.class
+Controllers\ReturnTicketController.class
 Controllers\CheckTicketController.class
 Models\Report.class
 Models\Schedule.class

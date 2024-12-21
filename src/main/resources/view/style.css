@@ -199,10 +199,35 @@
 
 .sales_pane{
     -fx-border-radius: 8px; 
-    -fx-border-color: D7D7D7;
+    -fx-border-color: #D7D7D7;
     -fx-background-color: transparent;
     -fx-background-radius: 8px; 
 }
+
+.gray_pane{
+    -fx-border-radius: 8px; 
+    -fx-border-color: white;
+    -fx-background-color: white;
+    -fx-background-radius: 8px; 
+    -fx-border-color: #D7D7D7;
+}
+
+.upload_pane{
+    -fx-border-radius: 8px; 
+    -fx-background-color: #D3D3D3;
+    -fx-background-radius: 8px; 
+}
+
+
+.btn_return {
+    -fx-background-color: #FF2929;
+    -fx-border-radius: 20px; 
+    -fx-background-radius: 20px; 
+    -fx-text-fill: white; 
+    -fx-cursor: hand;
+}
+
+
 .btn_checkticket {
     -fx-background-color: #353A56;
     -fx-border-radius: 0 0 20px 20px; 

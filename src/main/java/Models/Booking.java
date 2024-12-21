@@ -21,12 +21,11 @@ public class Booking {
     private StringProperty status;
 
     // Constructor
-    public Booking(int bookingId, String ticketId, int paymentId, String customerName, String passport,
+    public Booking(int bookingId, String ticketId, String customerName, String passport,
                    double paymentAmount, String bookingTime, String departureDate, String trainName,
                    String route, String classType, String seatNumber, String coachNumber, String status) {
         this.bookingId = new SimpleIntegerProperty(bookingId);
         this.ticketId = new SimpleStringProperty(ticketId);
-        this.paymentId = new SimpleIntegerProperty(paymentId);
         this.customerName = new SimpleStringProperty(customerName);
         this.passport = new SimpleStringProperty(passport);
         this.paymentAmount = new SimpleDoubleProperty(paymentAmount);
@@ -63,14 +62,6 @@ public class Booking {
 
     public StringProperty ticketIdProperty() {
         return ticketId;
-    }
-
-    public int getPaymentId() {
-        return paymentId.get();
-    }
-
-    public void setPaymentId(int paymentId) {
-        this.paymentId.set(paymentId);
     }
 
     public IntegerProperty paymentIdProperty() {
@@ -214,7 +205,6 @@ public class Booking {
         return "Booking{" +
                 "bookingId=" + bookingId.get() +
                 ", ticketId='" + ticketId.get() + '\'' +
-                ", paymentId=" + paymentId.get() +
                 ", customerName='" + customerName.get() + '\'' +
                 ", passport='" + passport.get() + '\'' +
                 ", paymentAmount=" + paymentAmount.get() +

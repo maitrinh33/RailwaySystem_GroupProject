@@ -14,130 +14,146 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="700.0" prefWidth="900.0" styleClass="center-pane" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ReturnTicketController">
+<AnchorPane prefHeight="869.0" prefWidth="1009.0" styleClass="center-pane" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ReturnTicketController">
     <children>
         <!-- Title -->
-        <Label layoutX="20.0" layoutY="20.0" styleClass="header-label" text="Return Ticket">
+        <Label layoutX="64.0" layoutY="34.0" prefHeight="50.0" prefWidth="218.0" styleClass="header-label" text="Return Ticket">
             <font>
-                <Font name="Arial Bold" size="24.0" />
+                <Font name="Arial Black" size="28.0" />
             </font>
         </Label>
         
         <!-- Ticket ID Field -->
-        <Label layoutX="20.0" layoutY="80.0" text="Enter Ticket ID:" />
-        <TextField fx:id="ticketIdField" layoutX="150.0" layoutY="76.0" prefHeight="26.0" prefWidth="200.0" styleClass="combobox" stylesheets="@style.css" />
-        <Button fx:id="searchButton" layoutX="371.0" layoutY="77.0" prefHeight="25.0" prefWidth="58.0" styleClass="btn_add" stylesheets="@style.css" text="Search" />
+        <Label layoutX="64.0" layoutY="109.0" text="Enter Ticket ID:" />
+        <TextField fx:id="ticketIdField" layoutX="204.0" layoutY="104.0" onAction="#handleSearch" prefHeight="26.0" prefWidth="200.0" styleClass="combobox" stylesheets="@style.css" />
+        <Button fx:id="searchButton" layoutX="425.0" layoutY="105.0" onAction="#handleSearch" prefHeight="25.0" prefWidth="58.0" styleClass="btn_search" stylesheets="@style.css" text="Find">
+         <font>
+            <Font name="Century Gothic" size="12.0" />
+         </font></Button>
 
         <!-- Options for Change or Return -->
-        <Label layoutX="20.0" layoutY="130.0" text="Select Option:" />
-        <RadioButton fx:id="changeTicketOption" layoutX="150.0" layoutY="125.0" text="Change Ticket">
+        <Label layoutX="64.0" layoutY="153.0" text="Select Option:" />
+        <RadioButton fx:id="changeTicketOption" layoutX="204.0" layoutY="153.0" onAction="#handleSearch" text="Change Ticket">
          <toggleGroup>
             <ToggleGroup fx:id="optionToggleGroup" />
          </toggleGroup></RadioButton>
-        <RadioButton fx:id="returnTicketOption" layoutX="260.0" layoutY="125.0" text="Return Ticket" toggleGroup="$optionToggleGroup" />
+        <RadioButton fx:id="returnTicketOption" layoutX="314.0" layoutY="153.0" onAction="#handleSearch" text="Return Ticket" toggleGroup="$optionToggleGroup" />
 
         <!-- Separator -->
-        <Separator layoutX="10.0" layoutY="170.0" prefWidth="880.0" />
+        <Separator layoutX="64.0" layoutY="198.0" prefWidth="880.0" />
 
         <!-- Customer Details Section -->
-        <Label layoutX="20.0" layoutY="190.0" style="-fx-font-weight: bold;" text="Customer Details:" />
+        <Label layoutX="68.0" layoutY="227.0" style="-fx-font-weight: bold;" text="Customer Details:">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
 
         <!-- Refund Calculation Section -->
-        <Label layoutX="500.0" layoutY="190.0" style="-fx-font-weight: bold;" text="Refund Details:" />
+        <Label layoutX="666.0" layoutY="236.0" style="-fx-font-weight: bold;" text="Refund Details:" />
 
         <!-- Upload Passport Section -->
-        <Label layoutX="500.0" layoutY="350.0" text="Upload Passport Picture:" />
-        <HBox layoutX="500.0" layoutY="380.0" spacing="10.0">
-            <Button fx:id="uploadButton" styleClass="btn_clear" stylesheets="@style.css" text="Upload" />
-            <ImageView fx:id="passportImageView" fitHeight="150.0" fitWidth="200.0" preserveRatio="true" />
+        <Label layoutX="666.0" layoutY="396.0" text="Upload Passport Picture:">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+        <HBox layoutX="666.0" layoutY="426.0" prefHeight="168.0" prefWidth="278.0" spacing="10.0" styleClass="upload_pane" stylesheets="@style.css">
+            <Button fx:id="uploadButton" prefHeight="27.0" prefWidth="86.0" styleClass="btn_clear" stylesheets="@style.css" text="Upload +" textFill="#144981" />
+            <ImageView fx:id="passportImageView" fitHeight="150.0" fitWidth="190.0" preserveRatio="true" />
         </HBox>
 
         <!-- Return Button -->
-        <Button fx:id="returnButton" layoutX="400.0" layoutY="550.0" prefHeight="34.0" prefWidth="100.0" styleClass="btn_search" stylesheets="@style.css" text="Return" />
-      <GridPane layoutX="14.0" layoutY="217.0" prefHeight="300.0" prefWidth="346.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="166.5" minWidth="10.0" prefWidth="113.5" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="260.5" minWidth="10.0" prefWidth="232.5" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
+        <Button fx:id="returnButton" layoutX="844.0" layoutY="628.0" prefHeight="34.0" prefWidth="100.0" styleClass="btn_return" stylesheets="@style.css" text="RETURN">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <AnchorPane layoutX="64.0" layoutY="267.0" prefHeight="528.0" prefWidth="385.0" styleClass="gray_pane">
          <children>
-                <Label text="Name:" />
-            <Label fx:id="customerName" text="customerName" GridPane.columnIndex="1">
-               <font>
-                  <Font name="System Bold" size="13.0" />
-               </font>
-            </Label>
-            <Label fx:id="passport" text="passport" GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <font>
-                  <Font name="System Bold" size="13.0" />
-               </font>
-            </Label>
-                <Label text="Passport ID:" GridPane.rowIndex="1" />
-            <Label text="Departure Date" GridPane.rowIndex="2" />
-            <Label fx:id="departureDate" text="departureDate" GridPane.columnIndex="1" GridPane.rowIndex="2">
-               <font>
-                  <Font name="System Bold" size="13.0" />
-               </font>
-            </Label>
-                <Label text="Route:" GridPane.rowIndex="3" />
-            <Label fx:id="route" text="route" GridPane.columnIndex="1" GridPane.rowIndex="3">
-               <font>
-                  <Font name="System Bold" size="13.0" />
-               </font>
-            </Label>
-                <Label text="Train Name:" GridPane.rowIndex="4" />
-            <Label fx:id="trainName" text="trainName" GridPane.columnIndex="1" GridPane.rowIndex="4">
-               <font>
-                  <Font name="System Bold" size="13.0" />
-               </font>
-            </Label>
-                <Label text="Coach:" GridPane.rowIndex="5" />
-            <Label fx:id="coachNumber" text="coachNumber" GridPane.columnIndex="1" GridPane.rowIndex="5">
-               <font>
-                  <Font name="System Bold" size="13.0" />
-               </font>
-            </Label>
-            <Label fx:id="classType" text="classType" GridPane.columnIndex="1" GridPane.rowIndex="6">
-               <font>
-                  <Font name="System Bold" size="13.0" />
-               </font>
-            </Label>
-            <Label fx:id="seatNumber" text="seatNumber" GridPane.columnIndex="1" GridPane.rowIndex="7">
-               <font>
-                  <Font name="System Bold" size="13.0" />
-               </font>
-            </Label>
-            <Label fx:id="customerName7" text="ticketType" GridPane.columnIndex="1" GridPane.rowIndex="8">
-               <font>
-                  <Font name="System Bold" size="13.0" />
-               </font>
-            </Label>
-            <Label fx:id="payment" text="payment" GridPane.columnIndex="1" GridPane.rowIndex="9">
-               <font>
-                  <Font name="System Bold" size="13.0" />
-               </font>
-            </Label>
-                <Label text="Class Type:" GridPane.rowIndex="6" />
-                <Label text="Seat:" GridPane.rowIndex="7" />
-                <Label text="Ticket Type:" GridPane.rowIndex="8" />
-                <Label text="Payment:" GridPane.rowIndex="9" />
+            <GridPane layoutX="22.0" layoutY="14.0" prefHeight="497.0" prefWidth="368.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="166.5" minWidth="10.0" prefWidth="154.5" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="260.5" minWidth="10.0" prefWidth="205.5" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                      <Label text="Name:" />
+                  <Label fx:id="customerName" text="Name" GridPane.columnIndex="1">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="passport" text="Passport" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+                      <Label text="Passport ID:" GridPane.rowIndex="1" />
+                  <Label text="Departure Date" GridPane.rowIndex="2" />
+                  <Label fx:id="departureDate" text="Departure Date" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+                      <Label text="Route:" GridPane.rowIndex="3" />
+                  <Label fx:id="route" text="Route" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+                      <Label text="Train Name:" GridPane.rowIndex="4" />
+                  <Label fx:id="trainName" text="TrainName" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+                      <Label text="Coach:" GridPane.rowIndex="5" />
+                  <Label fx:id="coachNumber" text="CoachNumber" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="classType" text="Class Type" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="seatNumber" text="Seat Number" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="customerName7" text="Ticket Type" GridPane.columnIndex="1" GridPane.rowIndex="8">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="payment" text="Payment" GridPane.columnIndex="1" GridPane.rowIndex="9">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+                      <Label text="Class Type:" GridPane.rowIndex="6" />
+                      <Label text="Seat:" GridPane.rowIndex="7" />
+                      <Label text="Ticket Type:" GridPane.rowIndex="8" />
+                      <Label text="Payment:" GridPane.rowIndex="9" />
+               </children>
+            </GridPane>
          </children>
-      </GridPane>
-      <GridPane layoutX="500.0" layoutY="222.0" prefHeight="90.0" prefWidth="237.0">
+      </AnchorPane>
+      <GridPane layoutX="666.0" layoutY="276.0" prefHeight="90.0" prefWidth="278.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="111.5" minWidth="10.0" prefWidth="93.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="145.0" minWidth="10.0" prefWidth="144.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="111.5" minWidth="10.0" prefWidth="88.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="180.5" minWidth="10.0" prefWidth="168.5" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -146,9 +162,9 @@
         </rowConstraints>
          <children>
                 <Label text="Refund:" />
-            <TextField fx:id="feesField1" editable="false" GridPane.columnIndex="1" />
-                <TextField fx:id="feesField" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="feesField2" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="refundAmountField" editable="false" maxWidth="-Infinity" prefHeight="26.0" prefWidth="183.0" styleClass="combobox" GridPane.columnIndex="1" />
+                <TextField fx:id="feesField" styleClass="combobox" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="totalRefundField" editable="false" styleClass="combobox" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                 <Label text="Total Refund:" GridPane.rowIndex="2" />
                 <Label text="Fees:" GridPane.rowIndex="1" />
          </children>
