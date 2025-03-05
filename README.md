@@ -1,5 +1,3 @@
-### Suggested README:
-
 # 🚆 Railway Ticket Management System  
 
 ## 📌 Overview  
