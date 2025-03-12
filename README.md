@@ -2,7 +2,7 @@
 
 ## 📌 Overview  
 The **Railway Ticket Management System** is designed for **station staff** to efficiently manage ticket purchases, cancellations, and seat assignments. Built using **JavaFX (FXML & Scene Builder)** and **MySQL**, the system follows the **MVC architecture** and applies **OOP principles** for scalability and maintainability.  
-
+![Railway Staff System](https://github.com/maitrinh33/RailwaySystem_GroupProject/blob/main/DashboardView.png)
 ## 📖 Documentation  
 For detailed system requirements, setup instructions, and usage guidelines, refer to the project documentation:  
 📄 **[Project Report](https://docs.google.com/document/d/1qEKmphEIg0POK8MVeajXwEm8LA_VZvJQ/edit)**  
