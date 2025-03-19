@@ -2,6 +2,9 @@ package Controllers;
 
 import Models.Booking;
 import Utils.DatabaseConnection;
+import java.sql.*;
+import java.time.LocalDate;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -9,14 +12,10 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 
-import java.sql.*;
-import java.time.LocalDate;
-
 public class BookingHistoryController {
 
     @FXML
     private TableView<Booking> bookingTable;
-
     @FXML
     private TextField ticketIdField;
     @FXML
@@ -30,7 +29,6 @@ public class BookingHistoryController {
 
     @FXML
     private void initialize() {
-        // Set up the table columns dynamically
         TableColumn<Booking, Integer> bookingIdColumn = new TableColumn<>("Booking ID");
         bookingIdColumn.setCellValueFactory(new PropertyValueFactory<>("bookingId"));
 
@@ -70,7 +68,6 @@ public class BookingHistoryController {
         TableColumn<Booking, String> statusColumn = new TableColumn<>("Status");
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
         
-        // Set a custom cell factory for the status column
         statusColumn.setCellFactory(column -> new TableCell<Booking, String>() {
             @Override
             protected void updateItem(String status, boolean empty) {
@@ -80,7 +77,6 @@ public class BookingHistoryController {
                     setStyle("");
                 } else {
                     setText(status);
-                    // Set text color based on status value
                     switch (status) {
                         case "Confirmed" -> setTextFill(javafx.scene.paint.Color.LIGHTGREEN);
                         case "Returned" -> setTextFill(javafx.scene.paint.Color.RED);
@@ -91,28 +87,22 @@ public class BookingHistoryController {
             }
         });
 
-        // Add columns to the table
         bookingTable.getColumns().addAll(
                 bookingIdColumn, ticketIdColumn,customerNameColumn, passportColumn, 
                 paymentAmountColumn, bookingTimeColumn, departureDateColumn, trainNameColumn, 
                 routeColumn, classTypeColumn, seatNumberColumn, coachNumberColumn, statusColumn
         );
 
-        // Populate the status combo box with options
         statusComboBox.getItems().addAll("All", "Paid", "Cancelled");
-        statusComboBox.setValue("All");  // Default to "All"
-
-        // Populate the table with all bookings initially
+        statusComboBox.setValue("All");  
         loadBookings();
     }
 
-    // Method to load all bookings into the TableView
     private void loadBookings() {
         ObservableList<Booking> bookings = fetchBookingsFromDatabase(null, null, null, null, null);
         bookingTable.setItems(bookings);
     }
 
-    // Method to handle Find button action
     @FXML
     private void handleFindButton() {
         String ticketId = ticketIdField.getText().trim();
@@ -121,7 +111,6 @@ public class BookingHistoryController {
         String status = statusComboBox.getValue();
         LocalDate departureDate = bookDatePicker.getValue();
 
-        // Fetch filtered bookings based on the inputs
         ObservableList<Booking> filteredBookings = fetchBookingsFromDatabase(ticketId, customerName, passport, status, departureDate);
         bookingTable.setItems(filteredBookings);
     }
@@ -129,7 +118,6 @@ public class BookingHistoryController {
     private ObservableList<Booking> fetchBookingsFromDatabase(String ticketId, String customerName, String passport, String status, LocalDate departureDate) {
         ObservableList<Booking> bookings = FXCollections.observableArrayList();
 
-        // Build the SQL query with dynamic filtering
         String query = "SELECT * FROM booking WHERE 1=1";
 
         if (ticketId != null && !ticketId.isEmpty()) {
@@ -148,12 +136,10 @@ public class BookingHistoryController {
             query += " AND departure_date = '" + departureDate + "'";
         }
 
-        // Execute the query and fetch data
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query);
              ResultSet rs = stmt.executeQuery()) {
 
-            // Iterate through the result set and create Booking objects
             while (rs.next()) {
                 Booking booking = new Booking(
                         rs.getInt("booking_id"),
@@ -177,17 +163,13 @@ public class BookingHistoryController {
         return bookings;
     }
 
-    // Method to handle the Clear button action
     @FXML
     private void handleClearButton(MouseEvent event) {
-        // Clear all input fields
         ticketIdField.clear();
         customerNameField.clear();
         passportField.clear();
         bookDatePicker.setValue(null);
-        statusComboBox.setValue("All");  // Reset to "All"
-
-        // Reload all bookings (no filters)
+        statusComboBox.setValue("All"); 
         loadBookings();
     }
 }

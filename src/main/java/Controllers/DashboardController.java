@@ -89,7 +89,6 @@ public class DashboardController {
         Map<String, Double> revenueMap = new HashMap<>();
         Map<String, Double> profitMap = new HashMap<>();
 
-        // Pre-fill the last 7 days with zero values
         for (int i = 6; i >= 0; i--) {
             LocalDate date = today.minusDays(i);
             String dateLabel = date.toString();
@@ -97,14 +96,12 @@ public class DashboardController {
             profitMap.put(dateLabel, 0.0);
         }
 
-        // Populate the maps with actual data
         for (Report report : reportDataList) {
             String label = report.getReportDate().toString();
             revenueMap.put(label, report.getTotalRevenue());
             profitMap.put(label, report.getTotalProfit());
         }
 
-        // Add data to series
         for (String dateLabel : revenueMap.keySet()) {
             revenueSeries.getData().add(new XYChart.Data<>(dateLabel, revenueMap.get(dateLabel)));
             profitSeries.getData().add(new XYChart.Data<>(dateLabel, profitMap.get(dateLabel)));
@@ -124,7 +121,6 @@ public class DashboardController {
         LocalDate today = LocalDate.now();
         Map<String, Integer> bookingMap = new HashMap<>();
 
-        // Pre-fill the last 7 days with zero values
         for (int i = 6; i >= 0; i--) {
             LocalDate date = today.minusDays(i);
             String dateLabel = date.toString();

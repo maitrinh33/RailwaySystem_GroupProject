@@ -89,8 +89,7 @@ public class BookTicketController {
     
     @FXML
     private TextField changeField;
-    
-    
+        
     @FXML
     private TableView<Ticket> ticketTableView; 
     
@@ -117,7 +116,7 @@ public class BookTicketController {
 
         CheckTicketController checkTicketController = loader.getController();
         checkTicketController.setBookTicketController(this);
-        checkTicketController.setOpenedFromSidebar(false); // Indicate opened as standalone
+        checkTicketController.setOpenedFromSidebar(false); 
 
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
@@ -130,12 +129,10 @@ public class BookTicketController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/BookTicket.fxml"));
             AnchorPane newContent = loader.load();
 
-            // Wrap the content in a ScrollPane to make it scrollable
             ScrollPane scrollPane = new ScrollPane(newContent);
             scrollPane.setFitToWidth(true);
             scrollPane.setFitToHeight(true);
 
-            // Assuming you have a reference to the main pane in sidebarController
             if (sidebarController != null) {
                 sidebarController.getMainPane().setCenter(scrollPane);
             }
@@ -156,10 +153,8 @@ public class BookTicketController {
             removeExpiredTickets();
             releaseExpiredSeats();
             setupListeners();
-                // Disable the delete button initially
                 deleteButton.setDisable(true);
 
-                // Enable the delete button if a ticket is selected
                 ticketTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
                     deleteButton.setDisable(newSelection == null); 
                 });
@@ -182,18 +177,13 @@ public class BookTicketController {
     }
     
     private void setupTicketTypeComboBox() {
-        // Define options for the ComboBox
         ObservableList<String> ticketTypes = FXCollections.observableArrayList("Adult", "Children", "Student");
 
-        // Set items in the ComboBox
         ticketTypeComboBox.setItems(ticketTypes);
 
-        // Add listener for selection changes
         ticketTypeComboBox.setOnAction(event -> {
             String selectedType = ticketTypeComboBox.getValue();
             System.out.println("Selected Ticket Type: " + selectedType);
-
-            // Add logic based on the selection if needed
         });
     }
     
@@ -227,94 +217,77 @@ public class BookTicketController {
     private void setupTableColumns() {
         ticketTableView.getColumns().clear();
 
-        // Ticket ID Column
         TableColumn<Ticket, String> ticketIdCol = new TableColumn<>("Ticket ID");
         ticketIdCol.setCellValueFactory(new PropertyValueFactory<>("ticketId"));
 
-        // Departure Date Column
         TableColumn<Ticket, LocalDate> departureDateCol = new TableColumn<>("Departure Date");
         departureDateCol.setCellValueFactory(new PropertyValueFactory<>("departureDate"));
 
-        // Train Name Column
         TableColumn<Ticket, String> trainNameCol = new TableColumn<>("Train Name");
         trainNameCol.setCellValueFactory(cellData -> {
             Schedule schedule = cellData.getValue().getSchedule();
             return schedule != null ? schedule.trainNameProperty() : new SimpleStringProperty("N/A");
         });
 
-        // Route Column
         TableColumn<Ticket, String> routeCol = new TableColumn<>("Route");
         routeCol.setCellValueFactory(cellData -> {
             Schedule schedule = cellData.getValue().getSchedule();
             return schedule != null ? schedule.routeProperty() : new SimpleStringProperty("N/A");
         });
 
-        // Seat Number Column
         TableColumn<Ticket, String> seatNumberCol = new TableColumn<>("Seat");
         seatNumberCol.setCellValueFactory(cellData -> {
             Seat seat = cellData.getValue().getSeat();
             return seat != null ? seat.seatNumberProperty() : new SimpleStringProperty("N/A");
         });
 
-        // Class Type Column
         TableColumn<Ticket, String> classTypeCol = new TableColumn<>("Class Type");
         classTypeCol.setCellValueFactory(cellData -> {
             Seat seat = cellData.getValue().getSeat();
             return seat != null ? seat.classTypeProperty() : new SimpleStringProperty("N/A");
         });
 
-        // Ticket Type Column
         TableColumn<Ticket, String> ticketTypeCol = new TableColumn<>("Ticket Type");
         ticketTypeCol.setCellValueFactory(new PropertyValueFactory<>("ticketType"));
 
-        // Base Fare Column
         TableColumn<Ticket, Double> baseFareCol = new TableColumn<>("Base Fare");
         baseFareCol.setCellValueFactory(new PropertyValueFactory<>("baseFare"));
 
-        // Subsidy Amount Column
         TableColumn<Ticket, Double> subsidyCol = new TableColumn<>("Subsidy Amount");
         subsidyCol.setCellValueFactory(new PropertyValueFactory<>("subsidyAmount"));
 
-        // Total Fare Column
         TableColumn<Ticket, Double> totalFareCol = new TableColumn<>("Total Fare");
         totalFareCol.setCellValueFactory(new PropertyValueFactory<>("totalFare"));
 
-        // Customer Name Column
         TableColumn<Ticket, String> customerNameCol = new TableColumn<>("Customer Name");
         customerNameCol.setCellValueFactory(new PropertyValueFactory<>("customerName"));
 
-        // Passport Column
         TableColumn<Ticket, String> passportCol = new TableColumn<>("Passport");
         passportCol.setCellValueFactory(new PropertyValueFactory<>("passport"));
 
-        // Reservation Time column (acting as Countdown)
         TableColumn<Ticket, String> reservationTimeCol = new TableColumn<>("Time Remaining");
         reservationTimeCol.setCellValueFactory(cellData -> cellData.getValue().timeRemainingProperty());
 
-        // Timeline for countdown
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(10), event -> {
             ticketList.forEach(ticket -> {
                 if (!ticket.isPaid()) {
-                    // Update countdown display for unpaid tickets
+
                     ticket.updateTimeRemaining();
                 }
             });
-            ticketTableView.refresh(); // Refresh the view to show updated countdowns
+            ticketTableView.refresh(); 
         }));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
 
-        // Add all columns to the TableView
         ticketTableView.getColumns().addAll(
             ticketIdCol, departureDateCol, trainNameCol, routeCol, seatNumberCol, 
             classTypeCol, ticketTypeCol, baseFareCol, subsidyCol, totalFareCol,
             customerNameCol, passportCol, reservationTimeCol
         );
 
-        // Set the items in the TableView
         ticketTableView.setItems(ticketList);
         
-        // After adding the ticket, update totals
         updateTotals();
     }
     
@@ -332,13 +305,12 @@ public class BookTicketController {
     }
     
     private void refreshUI() {
-        loadTicketsFromDatabase(); // Reload tickets to reflect any changes
-        updateTotals(); // Update total tickets and money fields
+        loadTicketsFromDatabase(); 
+        updateTotals(); 
     }
     
     @FXML
     public void addTicket(ActionEvent event) {
-        // Gather input values
         String ticketId = generateTicketId();
         LocalDate departureDate = departureDatePicker.getValue();
         String selectedTrainName = trainName.getValue();
@@ -352,7 +324,6 @@ public class BookTicketController {
         String passport = passportField.getText();          
         String selectedticketType = ticketTypeComboBox.getValue(); 
         
-        // Check if the departure date is null
         if (departureDate == null) {
             showAlert("Error", "Departure date must be selected.", Alert.AlertType.ERROR);
             return;
@@ -386,9 +357,9 @@ public class BookTicketController {
 
         // Calculate fares
         double baseFare = getBaseFare(selectedTrainName, selectedCoach, selectedClassType);
-        double subsidyPercentage = getSubsidyAmount(ticketType); // Get the subsidy percentage
-        double subsidyAmount = baseFare * subsidyPercentage; // Calculate the subsidy amount
-        double totalFare = baseFare - subsidyAmount; // Calculate the total fare
+        double subsidyPercentage = getSubsidyAmount(ticketType); 
+        double subsidyAmount = baseFare * subsidyPercentage; 
+        double totalFare = baseFare - subsidyAmount; 
 
         // Fetch schedule_id and seat_id
         int scheduleId = getScheduleId(selectedTrainName);
@@ -402,7 +373,6 @@ public class BookTicketController {
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
              PreparedStatement stmt = conn.prepareStatement(insertTicketSQL)) {
 
-            // Set parameters for the prepared statement
             stmt.setString(1, ticketId);
             stmt.setDate(2, Date.valueOf(departureDate));
             stmt.setString(3, selectedTrainName);
@@ -419,13 +389,9 @@ public class BookTicketController {
             stmt.setInt(14, scheduleId);
             stmt.setInt(15, seatId);
 
-            // Execute the insert
             stmt.executeUpdate();
-            
-            // After successfully adding the ticket, mark the seat as unavailable
             markSeatAsUnavailable(selectedSeat, selectedTrainName);
 
-            // Refresh the table view
             refreshUI();
             ticketTableView.setItems(ticketList); 
             setupTableColumns(); 
@@ -489,54 +455,50 @@ public class BookTicketController {
                 rs.getString("route") // Route
             );
 
-            // Use the simplified Seat constructor
             Seat seat = new Seat(
-                rs.getString("seat_number"), // Seat Number
-                rs.getString("class_type"), // Class Type
-                rs.getString("coach_number") // Coach Number
+                rs.getString("seat_number"), 
+                rs.getString("class_type"), 
+                rs.getString("coach_number") 
             );
 
             // Create the Ticket object
             Ticket ticket = new Ticket(
-                rs.getString("ticketIdentifier"), // Ticket Identifier
-                rs.getDate("departure_date").toLocalDate(), // Departure Date
-                schedule, // Simplified Schedule Object
-                seat, // Simplified Seat Object
-                rs.getString("ticket_type"), // Ticket Type
-                rs.getDouble("base_fare"), // Base Fare
-                rs.getDouble("subsidy_amount"), // Subsidy Amount
-                rs.getDouble("total_fare"), // Total Fare
-                rs.getString("customer_name"), // Customer Name
-                rs.getString("passport"), // Passport
-                rs.getTimestamp("reservation_time").toLocalDateTime() // Reservation Time
+                rs.getString("ticketIdentifier"), 
+                rs.getDate("departure_date").toLocalDate(), 
+                schedule, 
+                seat, 
+                rs.getString("ticket_type"), 
+                rs.getDouble("base_fare"), 
+                rs.getDouble("subsidy_amount"), 
+                rs.getDouble("total_fare"), 
+                rs.getString("customer_name"),
+                rs.getString("passport"), 
+                rs.getTimestamp("reservation_time").toLocalDateTime()
             );
             
-            // Set the isPaid status
             ticket.setPaid(rs.getBoolean("isPaid"));
-            // Add the Ticket to the observable list
             ticketList.add(ticket); 
         }
         
         removeExpiredTickets();
-        ticketTableView.setItems(ticketList); // Bind data to the table
+        ticketTableView.setItems(ticketList); 
 
         } catch (SQLException e) {
             showAlert("Error", "Failed to load tickets from database: " + e.getMessage(), Alert.AlertType.ERROR);
         }
     }
     
-        private void updateTotals() {
+    private void updateTotals() {
         int totalTickets = 0;
         double totalMoney = 0.0;
 
         for (Ticket ticket : ticketList) {
-            if (!ticket.isExpired() && !ticket.isPaid()) { // Check for expiration and paid status
+            if (!ticket.isExpired() && !ticket.isPaid()) { 
                 totalTickets++;
-                totalMoney += ticket.getTotalFare(); // Sum total fare
+                totalMoney += ticket.getTotalFare(); 
             }
         }
 
-        // Update fields with totals
         totalTicketsField.setText(String.valueOf(totalTickets));
         Locale locale = Locale.GERMANY;
         NumberFormat format = NumberFormat.getInstance(locale);
@@ -548,24 +510,20 @@ public class BookTicketController {
     @FXML
     public void handlePayment(ActionEvent event) {
         try {
-            // Set locale to Germany to handle comma as decimal separator
             Locale locale = Locale.GERMANY;
             NumberFormat format = NumberFormat.getInstance(locale);
 
-            // Parse the cash input
             double cash = format.parse(cashField.getText().trim()).doubleValue();
             double totalMoney = 0.0;
 
-            // Collect unpaid tickets that are not expired
             List<Ticket> unpaidTickets = new ArrayList<>();
             for (Ticket ticket : ticketList) {
                 if (!ticket.isPaid() && !ticket.isExpired()) {
                     unpaidTickets.add(ticket);
-                    totalMoney += ticket.getTotalFare(); // Calculate total fare for unpaid tickets
+                    totalMoney += ticket.getTotalFare(); 
                 }
             }
 
-            // Validate if cash is less than total money
             if (cash < totalMoney) {
                 showAlert("Error", "Insufficient cash! Please provide enough cash for the total amount.", Alert.AlertType.ERROR);
                 return;
@@ -573,12 +531,10 @@ public class BookTicketController {
 
             double change = cash - totalMoney;
 
-            // Save payment data
             int paymentId = savePayment(totalMoney, cash, change);
             logger.log(Level.INFO, "Payment ID: {0}", paymentId);
 
             if (paymentId != -1) {
-                // Process each unpaid ticket
                 for (Ticket ticket : unpaidTickets) {
                     LocalDate departureDate = ticket.getDepartureDate();
                     saveBookingData(ticket, departureDate);
@@ -589,13 +545,9 @@ public class BookTicketController {
 
                 showAlert("Success", "Booking successful! Thank you for your purchase.", Alert.AlertType.INFORMATION);
 
-                // Reload tickets to update UI
                 loadTicketsFromDatabase();
-
-                // Update totals
                 updateTotals();
 
-                // Reset fields
                 totalTicketsField.setText("0");
                 totalMoneyField.setText("0.00");
                 cashField.clear();
@@ -608,33 +560,33 @@ public class BookTicketController {
         }
     }
     
-private int getSeatId(String selectedSeat, String selectedTrainName, String selectedCoach, String selectedClassType) {
-    int seatId = -1;
-    String query = "SELECT id FROM seat WHERE seat_number = ? AND coach_number = ? AND class_type = ? AND train_id IN (" +
-                   "SELECT id FROM schedule WHERE train_name = ?)";
-    
-    try (Connection conn = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
-         PreparedStatement stmt = conn.prepareStatement(query)) {
-        
-        stmt.setString(1, selectedSeat);
-        stmt.setString(2, selectedCoach); // Set as String directly
-        stmt.setString(3, selectedClassType);
-        stmt.setString(4, selectedTrainName);
+    private int getSeatId(String selectedSeat, String selectedTrainName, String selectedCoach, String selectedClassType) {
+        int seatId = -1;
+        String query = "SELECT id FROM seat WHERE seat_number = ? AND coach_number = ? AND class_type = ? AND train_id IN (" +
+                       "SELECT id FROM schedule WHERE train_name = ?)";
 
-        ResultSet rs = stmt.executeQuery();
-        if (rs.next()) {
-            seatId = rs.getInt("id");
-        } else {
-            System.out.println("No seat found for the given parameters.");
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setString(1, selectedSeat);
+            stmt.setString(2, selectedCoach); 
+            stmt.setString(3, selectedClassType);
+            stmt.setString(4, selectedTrainName);
+
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                seatId = rs.getInt("id");
+            } else {
+                System.out.println("No seat found for the given parameters.");
+            }
+        } catch (SQLException e) {
+            System.err.println("SQL Error: " + e.getMessage());
+        } catch (IllegalArgumentException e) {
+            System.err.println("Input Error: " + e.getMessage());
         }
-    } catch (SQLException e) {
-        System.err.println("SQL Error: " + e.getMessage());
-    } catch (IllegalArgumentException e) {
-        System.err.println("Input Error: " + e.getMessage());
+
+        return seatId;
     }
-    
-    return seatId;
-}
 
     private int getScheduleId(String trainName) {
         int scheduleId = -1;
@@ -657,12 +609,12 @@ private int getSeatId(String selectedSeat, String selectedTrainName, String sele
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
              PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, trainName);
-            stmt.setInt(2, Integer.parseInt(coachNumber)); // Ensure coach is parsed to int
+            stmt.setInt(2, Integer.parseInt(coachNumber));
             stmt.setString(3, classType);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 baseFare = rs.getDouble("base_fare");
-                System.out.printf("Base fare found: %.2f%n", baseFare); // Debugging output
+                System.out.printf("Base fare found: %.2f%n", baseFare); 
             } else {
                 System.out.println("No fare found for Train: " + trainName + ", Coach: " + coachNumber + ", Class: " + classType);
             }
@@ -696,30 +648,25 @@ private int getSeatId(String selectedSeat, String selectedTrainName, String sele
         alert.setContentText(message);
         alert.show();
     }
-      
 
-    // Method to save payment data
     private int savePayment(double totalMoney, double cashReceived, double changeReturned) {
         String insertPaymentSQL = "INSERT INTO payment (ticket_id, total_money, cash_received, change_returned) VALUES (?, ?, ?, ?)";
-        int paymentId = -1; // Default to -1 to indicate failure
+        int paymentId = -1; 
 
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
              PreparedStatement stmt = conn.prepareStatement(insertPaymentSQL, Statement.RETURN_GENERATED_KEYS)) {
 
-            // Assuming you have access to the latest ticket ID
-            Ticket lastTicket = ticketList.get(ticketList.size() - 1); // Get the last ticket added
-            stmt.setString(1, lastTicket.getTicketId()); // Assuming getId() retrieves the ticket ID
+            Ticket lastTicket = ticketList.get(ticketList.size() - 1);
+            stmt.setString(1, lastTicket.getTicketId()); 
             stmt.setDouble(2, totalMoney);
             stmt.setDouble(3, cashReceived);
             stmt.setDouble(4, changeReturned);
 
-            // Execute the insert
             stmt.executeUpdate();
 
-            // Retrieve generated payment ID
             ResultSet generatedKeys = stmt.getGeneratedKeys();
             if (generatedKeys.next()) {
-                paymentId = generatedKeys.getInt(1); // Get generated payment ID
+                paymentId = generatedKeys.getInt(1);
             }
 
         } catch (SQLException e) {
@@ -738,18 +685,18 @@ private int getSeatId(String selectedSeat, String selectedTrainName, String sele
 
 
             // Save booking information
-            stmt.setString(1, lastTicket.getTicketId()); // Use the ticket ID
-            stmt.setString(2, lastTicket.getCustomerName()); // Customer name
-            stmt.setString(3, lastTicket.getPassport()); // Passport
-            stmt.setDouble(4, Double.parseDouble(totalMoneyField.getText())); // Ensure this field is valid
-            stmt.setTimestamp(5, Timestamp.valueOf(LocalDateTime.now())); // Booking time
-            stmt.setDate(6, Date.valueOf(departureDate)); // Departure date
+            stmt.setString(1, lastTicket.getTicketId()); 
+            stmt.setString(2, lastTicket.getCustomerName());
+            stmt.setString(3, lastTicket.getPassport()); 
+            stmt.setDouble(4, Double.parseDouble(totalMoneyField.getText())); 
+            stmt.setTimestamp(5, Timestamp.valueOf(LocalDateTime.now()));
+            stmt.setDate(6, Date.valueOf(departureDate));
             stmt.setString(7, lastTicket.getSchedule().getTrainName());
-            stmt.setString(8, lastTicket.getSeat().getId()); // Seat ID
-            stmt.setString(9, lastTicket.getSchedule().getRoute()); // Route
-            stmt.setString(10, lastTicket.getSeat().getClassType()); // Class type
-            stmt.setString(11, lastTicket.getSeat().getCoachNumber()); // Seat number
-            stmt.setString(12, lastTicket.getSeat().getSeatNumber()); // Coach number
+            stmt.setString(8, lastTicket.getSeat().getId()); 
+            stmt.setString(9, lastTicket.getSchedule().getRoute()); 
+            stmt.setString(10, lastTicket.getSeat().getClassType()); 
+            stmt.setString(11, lastTicket.getSeat().getCoachNumber()); 
+            stmt.setString(12, lastTicket.getSeat().getSeatNumber()); 
             // Execute the insert
             stmt.executeUpdate();
 
@@ -806,7 +753,7 @@ private int getSeatId(String selectedSeat, String selectedTrainName, String sele
                 .toList(); // Collect expired tickets
 
             expiredTickets.forEach(ticket -> deleteTicketFromDatabase(ticket)); // Remove from DB
-            ticketList.removeAll(expiredTickets); // Update the observable list directly
+            ticketList.removeAll(expiredTickets); 
         }
     }
 
@@ -828,22 +775,17 @@ private int getSeatId(String selectedSeat, String selectedTrainName, String sele
     }
 
     private void deleteTicket(Ticket ticket) {
-        // Confirm deletion with the user
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this ticket?");
         Optional<ButtonType> result = alert.showAndWait();
 
         if (result.isPresent() && result.get() == ButtonType.OK) {
-            // Ensure the ticket has an associated seat
             if (ticket.getSeat() != null) {
-                // Retrieve seat details from the Ticket object
                 String seatNumber = ticket.getSeat().getSeatNumber();
-                String coachNumber = ticket.getSeat().getCoachNumber(); // Assuming this method exists
-                String trainName = ticket.getSchedule().getTrainName(); // Assuming this method exists
+                String coachNumber = ticket.getSeat().getCoachNumber(); 
+                String trainName = ticket.getSchedule().getTrainName(); 
 
-                // Mark the seat as available
                 markSeatAsAvailable(seatNumber, coachNumber, trainName);
 
-                // Now delete the ticket from the database
                 deleteTicketFromDatabase(ticket);
                 showAlert("Success", "Ticket deleted successfully.", Alert.AlertType.INFORMATION);
             } else {
@@ -860,7 +802,6 @@ private int getSeatId(String selectedSeat, String selectedTrainName, String sele
             stmt.setString(1, ticket.getTicketId());
             stmt.executeUpdate();
 
-            // Remove the ticket from the table view
             ticketTableView.getItems().remove(ticket);
         } catch (SQLException e) {
             showAlert("Error", "Failed to delete ticket: " + e.getMessage(), Alert.AlertType.ERROR);

@@ -53,25 +53,20 @@ public class ReturnTicketController {
         uploadButton.setOnAction(this::handleUpload);
         returnButton.setOnAction(this::handleReturn);
         
-        // Add listeners for radio buttons
         returnTicketOption.selectedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
-                // Show refund-related fields when "returnTicketOption" is selected
                 refundAmountField.setVisible(true);
                 feesField.setVisible(true);
                 totalRefundField.setVisible(true);
             } else {
-                // Hide refund-related fields when "returnTicketOption" is not selected
                 refundAmountField.setVisible(false);
                 feesField.setVisible(false);
                 totalRefundField.setVisible(false);
             }
         });
         
-        // Attach listeners for dynamic calculation
         refundAmountField.textProperty().addListener((observable, oldValue, newValue) -> calculateTotalRefund());
         feesField.textProperty().addListener((observable, oldValue, newValue) -> calculateTotalRefund());
-        // Hide fields initially if needed
         refundAmountField.setVisible(false);
         feesField.setVisible(false);
         totalRefundField.setVisible(false);
@@ -87,14 +82,13 @@ private void handleSearch(ActionEvent event) {
 
     try (Connection connection = DatabaseConnection.getConnection()) {
         String query = "SELECT * FROM ticket t " +
-                       "JOIN booking b ON t.ticket_id = b.ticket_id " +  // Match ticket_id in both tables
-                       "WHERE t.ticket_id = ?";  // Use ticket_id here for comparison
+                       "JOIN booking b ON t.ticket_id = b.ticket_id " +  
+                       "WHERE t.ticket_id = ?";  
         PreparedStatement statement = connection.prepareStatement(query);
-        statement.setString(1, ticketId); // Use setString for the ticket_id (VARCHAR)
+        statement.setString(1, ticketId); 
 
         ResultSet resultSet = statement.executeQuery();
         if (resultSet.next()) {
-            // Populate the other fields
             customerName.setText(resultSet.getString("customer_name"));
             passport.setText(resultSet.getString("passport"));
             departureDate.setText(resultSet.getString("departure_date"));
@@ -106,11 +100,9 @@ private void handleSearch(ActionEvent event) {
             customerName7.setText(resultSet.getString("status"));
             payment.setText(resultSet.getString("payment_amount"));
 
-            // Set the base fare in the refundAmountField
             double baseFare = resultSet.getDouble("base_fare");
             refundAmountField.setText(String.valueOf(baseFare));
 
-            // Automatically show the refund fields when ticket is found and return is selected
             if (returnTicketOption.isSelected()) {
                 refundAmountField.setVisible(true);
                 feesField.setVisible(true);
@@ -130,11 +122,11 @@ private void handleSearch(ActionEvent event) {
         long hoursDifference = java.time.Duration.between(currentDateTime, departureDate).toHours();
 
         if (hoursDifference > 24) {
-            return fare; // Full refund
+            return fare; 
         } else if (hoursDifference <= 24 && hoursDifference > 0) {
-            return fare * 0.7; // 70% refund
+            return fare * 0.7; 
         }
-        return 0; // No refund
+        return 0; 
     }
 
     private void handleUpload(ActionEvent event) {
@@ -169,14 +161,12 @@ private void handleSearch(ActionEvent event) {
            return;
        }
 
-       // Validate the ticket ID format (must start with "TKT-" and then only digits)
        if (!ticketId.matches("TKT-\\d+")) {
            showAlert(Alert.AlertType.ERROR, "Error", "Invalid Ticket ID format. It should start with 'TKT-' followed by numbers.");
            return;
        }
 
        try (Connection connection = DatabaseConnection.getConnection()) {
-           // Check if the ticket has already been refunded
            String refundCheckQuery = "SELECT status FROM refund WHERE ticket_id = ?";
            PreparedStatement refundCheckStmt = connection.prepareStatement(refundCheckQuery);
            refundCheckStmt.setString(1, ticketId);
@@ -190,7 +180,6 @@ private void handleSearch(ActionEvent event) {
                }
            }
 
-           // Retrieve the booking ID for this ticket ID
            String bookingQuery = "SELECT booking_id FROM booking WHERE ticket_id = ?";
            PreparedStatement bookingStatement = connection.prepareStatement(bookingQuery);
            bookingStatement.setString(1, ticketId);
@@ -199,7 +188,6 @@ private void handleSearch(ActionEvent event) {
            if (bookingResult.next()) {
                int bookingId = bookingResult.getInt("booking_id");
 
-               // Calculate the refund amount (final refund from user input)
                double refund = refundAmountField.getText().isEmpty() ? 0 : Double.parseDouble(refundAmountField.getText());
                double fees = feesField.getText().isEmpty() ? 0 : Double.parseDouble(feesField.getText());
                double finalRefund = refund - fees;
@@ -209,7 +197,6 @@ private void handleSearch(ActionEvent event) {
                    return;
                }
 
-               // Insert refund data into the refund table
                String insertRefundQuery = "INSERT INTO refund (ticket_id, booking_id, refund_amount, status) " +
                                           "VALUES (?, ?, ?, ?)";
                PreparedStatement insertStatement = connection.prepareStatement(insertRefundQuery);
@@ -220,7 +207,6 @@ private void handleSearch(ActionEvent event) {
 
                insertStatement.executeUpdate();
 
-               // Display the final refund amount in the total refund field
                totalRefundField.setText(String.format("%.2f", finalRefund));
                showAlert(Alert.AlertType.INFORMATION, "Success", "Refund processed successfully.\nAmount: " + finalRefund);
            } else {
@@ -240,17 +226,14 @@ private void handleSearch(ActionEvent event) {
 
     private void calculateTotalRefund() {
     try {
-        // Get the base fare and validate input
         double refund = refundAmountField.getText().isEmpty() ? 0 : Double.parseDouble(refundAmountField.getText());
         double fees = feesField.getText().isEmpty() ? 0 : Double.parseDouble(feesField.getText());
 
-        // Ensure fees don't exceed refund
         if (fees > refund) {
             feesField.setText(String.format("%.2f", refund));
             fees = refund;
         }
 
-        // Calculate and display the final refund
         double finalRefund = refund - fees;
         totalRefundField.setText(String.format("%.2f", finalRefund));
     } catch (NumberFormatException e) {

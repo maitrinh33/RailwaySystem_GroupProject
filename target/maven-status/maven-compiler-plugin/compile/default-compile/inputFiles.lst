@@ -3,12 +3,12 @@ E:\Railway Management System\src\main\java\Controllers\BookTicketController.java
 E:\Railway Management System\src\main\java\Controllers\CheckTicketController.java
 E:\Railway Management System\src\main\java\Controllers\DashboardController.java
 E:\Railway Management System\src\main\java\Controllers\LoginController.java
+E:\Railway Management System\src\main\java\Controllers\MainApp.java
 E:\Railway Management System\src\main\java\Controllers\ManageScheduleController.java
 E:\Railway Management System\src\main\java\Controllers\ReportsController.java
 E:\Railway Management System\src\main\java\Controllers\ReturnTicketController.java
 E:\Railway Management System\src\main\java\Controllers\SeatInventoryController.java
 E:\Railway Management System\src\main\java\Controllers\SidebarController.java
-E:\Railway Management System\src\main\java\Controllers\TrainManagementSystem.java
 E:\Railway Management System\src\main\java\Models\Booking.java
 E:\Railway Management System\src\main\java\Models\Report.java
 E:\Railway Management System\src\main\java\Models\Schedule.java

@@ -12,9 +12,9 @@ import javafx.beans.property.SimpleStringProperty;
 public class Ticket {
     private final SimpleStringProperty ticketId;
     private final SimpleObjectProperty<LocalDate> departureDate;
-    private final SimpleObjectProperty<Schedule> schedule; // Reference to Schedule object
-    private final SimpleObjectProperty<Seat> seat;         // Reference to Seat object
-    private final SimpleStringProperty ticketType; // e.g., "Adult", "Student"
+    private final SimpleObjectProperty<Schedule> schedule; 
+    private final SimpleObjectProperty<Seat> seat;        
+    private final SimpleStringProperty ticketType; 
     private final SimpleDoubleProperty baseFare;
     private final SimpleDoubleProperty subsidyAmount;
     private final SimpleDoubleProperty totalFare;
@@ -26,7 +26,7 @@ public class Ticket {
     // Constructor
     public Ticket(String ticketId, LocalDate departureDate, Schedule schedule, Seat seat,
                   String ticketType, double baseFare, double subsidyAmount, double totalFare,
-                  String customerName, String passport, LocalDateTime reservationTime) { // Changed type here
+                  String customerName, String passport, LocalDateTime reservationTime) { 
         this.ticketId = new SimpleStringProperty(ticketId);
         this.departureDate = new SimpleObjectProperty<>(departureDate);
         this.schedule = new SimpleObjectProperty<>(schedule);
@@ -37,10 +37,9 @@ public class Ticket {
         this.totalFare = new SimpleDoubleProperty(totalFare);
         this.customerName = new SimpleStringProperty(customerName);
         this.passport = new SimpleStringProperty(passport);
-        this.reservationTime = new SimpleObjectProperty<>(reservationTime); // Changed to SimpleObjectProperty
+        this.reservationTime = new SimpleObjectProperty<>(reservationTime); 
     }
 
-    // Getters for JavaFX properties
     public String getTicketId() {
         return ticketId.get();
     }
@@ -133,12 +132,10 @@ public class Ticket {
         return Duration.between(reservationTime.get(), LocalDateTime.now()).getSeconds() > 600; // 10 minutes
     }
     
-    // Getter for isPaid
     public boolean isPaid() {
         return isPaid;
     }
 
-    // Setter for isPaid (if needed)
     public void setPaid(boolean isPaid) {
         this.isPaid = isPaid;
     }

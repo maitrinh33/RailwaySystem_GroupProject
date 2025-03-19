@@ -1,6 +1,7 @@
 package Controllers;
 
 import Models.Schedule;
+import Utils.DatabaseConnection; // Import the DatabaseConnection utility class
 import java.io.IOException;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -43,10 +44,6 @@ public class ManageScheduleController implements Initializable {
     private FilteredList<Schedule> filteredScheduleList;
     
     private Schedule selectedSchedule = null;
-
-    private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/railway_system"; 
-    private static final String USERNAME = "root"; 
-    private static final String PASSWORD = "3005"; 
     private static final Logger logger = Logger.getLogger(ManageScheduleController.class.getName());
     
     public void openSeatInventory() {
@@ -75,11 +72,9 @@ public class ManageScheduleController implements Initializable {
         setupButtonActions(); 
         loadSchedulesFromDatabase();
         
-       // Initialize FilteredList
         filteredScheduleList = new FilteredList<>(scheduleList, b -> true);
         tableView.setItems(filteredScheduleList);
 
-        // Add listener to the Search TextField
         Search.textProperty().addListener((observable, oldValue, newValue) -> {
             filterTable(newValue);
         });
@@ -87,15 +82,13 @@ public class ManageScheduleController implements Initializable {
     
     private void filterTable(String searchText) {
         filteredScheduleList.setPredicate(schedule -> {
-            // If no search text, display all schedules
             if (searchText == null || searchText.isEmpty()) {
                 return true;
             }
 
-            // Compare schedule properties with the search text
             String lowerCaseFilter = searchText.toLowerCase();
             if(schedule.getId().toLowerCase().contains(lowerCaseFilter)) {
-                return true; // Match found
+                return true; 
             }
             if (schedule.getTrainName().toLowerCase().contains(lowerCaseFilter)) {
                 return true; 
@@ -122,7 +115,6 @@ public class ManageScheduleController implements Initializable {
         });
     }
     
-    // Helper method for creating columns dynamically
     private TableColumn<Schedule, String> createColumn(String title, Function<Schedule, StringProperty> property) {
         TableColumn<Schedule, String> column = new TableColumn<>(title);
         column.setCellValueFactory(cellData -> property.apply(cellData.getValue()));
@@ -158,8 +150,8 @@ public class ManageScheduleController implements Initializable {
 
     private void loadTrainNames() {
         ObservableList<String> trainNames = FXCollections.observableArrayList();
-        String query = "SELECT DISTINCT train_name FROM schedule";  // Fetch train names from the schedule table
-        try (Connection connection = DriverManager.getConnection(DATABASE_URL, USERNAME, PASSWORD);
+        String query = "SELECT DISTINCT train_name FROM schedule";  
+        try (Connection connection = DatabaseConnection.getConnection(); // Use the utility class for connection
              PreparedStatement statement = connection.prepareStatement(query);
              ResultSet resultSet = statement.executeQuery()) {
 
@@ -174,8 +166,8 @@ public class ManageScheduleController implements Initializable {
 
     private void loadRoutes() {
         ObservableList<String> routes = FXCollections.observableArrayList();
-        String query = "SELECT DISTINCT route FROM schedule";  // Fetch routes from the schedule table
-        try (Connection connection = DriverManager.getConnection(DATABASE_URL, USERNAME, PASSWORD);
+        String query = "SELECT DISTINCT route FROM schedule";  
+        try (Connection connection = DatabaseConnection.getConnection(); // Use the utility class for connection
              PreparedStatement statement = connection.prepareStatement(query);
              ResultSet resultSet = statement.executeQuery()) {
 
@@ -192,12 +184,12 @@ public class ManageScheduleController implements Initializable {
         ObservableList<String> stations = FXCollections.observableArrayList();
         String query = "SELECT DISTINCT departure_station FROM schedule UNION SELECT DISTINCT arrival_station FROM schedule";
 
-        try (Connection connection = DriverManager.getConnection(DATABASE_URL, USERNAME, PASSWORD);
+        try (Connection connection = DatabaseConnection.getConnection(); // Use the utility class for connection
              PreparedStatement statement = connection.prepareStatement(query);
              ResultSet resultSet = statement.executeQuery()) {
 
             while (resultSet.next()) {
-                stations.add(resultSet.getString(1));  // Use index if aliasing is not necessary
+                stations.add(resultSet.getString(1));  
             }
             departureStation.setItems(stations);
             arrivalStation.setItems(stations);
@@ -206,12 +198,11 @@ public class ManageScheduleController implements Initializable {
         }
     }
 
-
     private void loadTimes() {
         ObservableList<String> times = FXCollections.observableArrayList();
-        String query = "SELECT DISTINCT departure_time FROM schedule"; // Fetch distinct departure times
+        String query = "SELECT DISTINCT departure_time FROM schedule"; 
 
-        try (Connection connection = DriverManager.getConnection(DATABASE_URL, USERNAME, PASSWORD);
+        try (Connection connection = DatabaseConnection.getConnection(); // Use the utility class for connection
              PreparedStatement statement = connection.prepareStatement(query);
              ResultSet resultSet = statement.executeQuery()) {
 
@@ -220,7 +211,7 @@ public class ManageScheduleController implements Initializable {
             }
 
             // Also fetch arrival times
-            query = "SELECT DISTINCT arrival_time FROM schedule"; // Fetch distinct arrival times
+            query = "SELECT DISTINCT arrival_time FROM schedule"; 
             try (PreparedStatement arrivalStatement = connection.prepareStatement(query);
                  ResultSet arrivalResultSet = arrivalStatement.executeQuery()) {
 
@@ -240,9 +231,9 @@ public class ManageScheduleController implements Initializable {
 
     private void loadCapacity() {
         ObservableList<String> capacities = FXCollections.observableArrayList();
-        String query = "SELECT DISTINCT capacity FROM schedule"; // Fetch distinct capacities
+        String query = "SELECT DISTINCT capacity FROM schedule";
 
-        try (Connection connection = DriverManager.getConnection(DATABASE_URL, USERNAME, PASSWORD);
+        try (Connection connection = DatabaseConnection.getConnection(); // Use the utility class for connection
              PreparedStatement statement = connection.prepareStatement(query);
              ResultSet resultSet = statement.executeQuery()) {
 
@@ -257,9 +248,8 @@ public class ManageScheduleController implements Initializable {
 
     private void loadStatus() {
         ObservableList<String> statuses = FXCollections.observableArrayList();
-        String query = "SELECT DISTINCT status FROM schedule"; // Fetch distinct statuses
-
-        try (Connection connection = DriverManager.getConnection(DATABASE_URL, USERNAME, PASSWORD);
+        String query = "SELECT DISTINCT status FROM schedule"; 
+        try (Connection connection = DatabaseConnection.getConnection(); // Use the utility class for connection
              PreparedStatement statement = connection.prepareStatement(query);
              ResultSet resultSet = statement.executeQuery()) {
 
@@ -287,7 +277,7 @@ public class ManageScheduleController implements Initializable {
         if (!validateInputs()) return;
 
         Schedule newSchedule = new Schedule(
-            null,  // ID will be generated by the database
+            null,  
             trainName.getValue(),
             route.getValue(),
             departureStation.getValue(),
@@ -303,9 +293,8 @@ public class ManageScheduleController implements Initializable {
         scheduleList.add(newSchedule);
         saveScheduleToDatabase(newSchedule);
         clearInputs();
-        showAlert("Success", "Schedule added successfully", Alert.AlertType.INFORMATION);  // Added success feedback
+        showAlert("Success", "Schedule added successfully", Alert.AlertType.INFORMATION);  
     }
-
 
     private void updateSchedule() {
         if (selectedSchedule == null) {
@@ -371,7 +360,6 @@ public class ManageScheduleController implements Initializable {
         }
     }
 
-    // Method to set actions for the buttons
     private void setupButtonActions() {
         btnAdd.setOnAction(e -> addSchedule());
         btnUpdate.setOnAction(e -> updateSchedule());
@@ -395,7 +383,7 @@ public class ManageScheduleController implements Initializable {
         String query = "INSERT INTO schedule (train_name, route, departure_station, arrival_station, " +
                 "departure_date, arrival_date, departure_time, arrival_time, capacity, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-        try (Connection connection = DriverManager.getConnection(DATABASE_URL, USERNAME, PASSWORD);
+        try (Connection connection = DatabaseConnection.getConnection(); // Use the utility class for connection
              PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
 
             preparedStatement.setString(1, schedule.getTrainName());
@@ -415,7 +403,7 @@ public class ManageScheduleController implements Initializable {
             try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
                     String generatedId = generatedKeys.getString(1);
-                    schedule.setId(generatedId);  // Assuming you have a setId method in your Schedule class
+                    schedule.setId(generatedId); 
                 }
             }
         } catch (SQLException e) {
@@ -427,7 +415,7 @@ public class ManageScheduleController implements Initializable {
         String query = "UPDATE schedule SET train_name = ?, route = ?, departure_station = ?, arrival_station = ?, " +
                 "departure_date = ?, arrival_date = ?, departure_time = ?, arrival_time = ?, capacity = ?, status = ? WHERE id = ?";
 
-        try (Connection connection = DriverManager.getConnection(DATABASE_URL, USERNAME, PASSWORD);
+        try (Connection connection = DatabaseConnection.getConnection(); // Use the utility class for connection
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, schedule.getTrainName());
             preparedStatement.setString(2, schedule.getRoute());
@@ -450,7 +438,7 @@ public class ManageScheduleController implements Initializable {
     private void deleteScheduleFromDatabase(Schedule schedule) {
         String query = "DELETE FROM schedule WHERE id = ?";
 
-        try (Connection connection = DriverManager.getConnection(DATABASE_URL, USERNAME, PASSWORD);
+        try (Connection connection = DatabaseConnection.getConnection(); // Use the utility class for connection
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, schedule.getId());
             preparedStatement.executeUpdate();
@@ -461,7 +449,7 @@ public class ManageScheduleController implements Initializable {
 
     private void loadSchedulesFromDatabase() {
         String query = "SELECT * FROM schedule";
-        try (Connection connection = DriverManager.getConnection(DATABASE_URL, USERNAME, PASSWORD);
+        try (Connection connection = DatabaseConnection.getConnection(); // Use the utility class for connection
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)) {
 

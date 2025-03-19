@@ -32,9 +32,9 @@ public class SeatInventoryController {
                     Seat seat = new Seat(
                             resultSet.getString("id"),
                             resultSet.getString("train_id"),
-                            resultSet.getString("coach_number"),  // Changed to String for coachNumber
+                            resultSet.getString("coach_number"),  
                             resultSet.getString("class_type"),
-                            resultSet.getString("seat_number"),  // Changed to String for seatNumber
+                            resultSet.getString("seat_number"),  
                             resultSet.getBoolean("is_available")
                     );
                     seats.add(seat);
@@ -51,12 +51,12 @@ public class SeatInventoryController {
      * @param isAvailable New availability status.
      * @throws SQLException If a database error occurs.
      */
-    public void updateSeatAvailability(String seatId, boolean isAvailable) throws SQLException { // Changed seatId to String
+    public void updateSeatAvailability(String seatId, boolean isAvailable) throws SQLException { 
         String query = "UPDATE Seat SET is_available = ? WHERE id = ?";
 
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setBoolean(1, isAvailable);
-            statement.setString(2, seatId);  // Changed to String for seatId
+            statement.setString(2, seatId);  
             statement.executeUpdate();
         }
     }

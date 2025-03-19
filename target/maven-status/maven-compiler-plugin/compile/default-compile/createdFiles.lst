@@ -5,6 +5,7 @@ Controllers\SidebarController.class
 Controllers\BookingHistoryController$1.class
 Controllers\ReturnTicketController.class
 Controllers\CheckTicketController.class
+Controllers\MainApp.class
 Models\Report.class
 Models\Schedule.class
 Controllers\BookTicketController.class
@@ -12,7 +13,6 @@ Controllers\BookingHistoryController.class
 Utils\DatabaseConnection.class
 Controllers\LoginController.class
 module-info.class
-Controllers\TrainManagementSystem.class
 Models\Ticket.class
 Controllers\ReportsController.class
 Models\Seat.class

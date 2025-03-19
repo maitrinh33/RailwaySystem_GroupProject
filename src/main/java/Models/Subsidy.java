@@ -5,7 +5,6 @@ public class Subsidy {
     private String description;
     private double amount;
 
-    // Constructor
     public Subsidy(int id, String description, double amount) {
         this.id = id;
         this.description = description;

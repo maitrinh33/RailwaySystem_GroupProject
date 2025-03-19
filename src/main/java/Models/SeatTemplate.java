@@ -25,6 +25,6 @@ public class SeatTemplate {
 
     @Override
     public String toString() {
-        return name; // This will be shown in the ComboBox
+        return name; 
     }
 }

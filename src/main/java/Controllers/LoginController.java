@@ -10,14 +10,12 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.AnchorPane;  // Import AnchorPane
-import javafx.scene.control.ScrollPane;  // Import ScrollPane
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import Utils.DatabaseConnection; 
 
 public class LoginController {
 
@@ -51,7 +49,7 @@ public class LoginController {
                 sidebarController.navigateToDashboard(null);
 
                 // Set the Scene to the main app
-                Stage stage = (Stage) usernameField.getScene().getWindow(); // Get the current stage
+                Stage stage = (Stage) usernameField.getScene().getWindow(); 
                 Scene scene = new Scene(root);
                 stage.setScene(scene);
                 stage.setTitle("Train Management System");
@@ -71,13 +69,9 @@ public class LoginController {
     }
 
     private boolean validateLogin(String username, String password) {
-        String url = "jdbc:mysql://localhost:3306/railway_system"; // Your database URL
-        String dbUsername = "root";  // MySQL username
-        String dbPassword = "3005";  
-
         String sql = "SELECT * FROM users WHERE username = ?";
 
-        try (Connection connection = DriverManager.getConnection(url, dbUsername, dbPassword);
+        try (Connection connection = DatabaseConnection.getConnection(); 
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setString(1, username);
@@ -85,16 +79,14 @@ public class LoginController {
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
-                // Get the stored password from the database
                 String storedPassword = resultSet.getString("password");
 
-                // Simply compare the input password with the stored password
                 return password.equals(storedPassword);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return false; // Return false if no matching user or invalid credentials
+        return false; 
     }
 }

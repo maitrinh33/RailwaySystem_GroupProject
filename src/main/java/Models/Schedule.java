@@ -41,13 +41,12 @@ public class Schedule {
         this.status = new SimpleStringProperty(status);
     }
     
-    // Simplified Schedule Constructor for Basic Data
     public Schedule(String trainName, String route) {
-        this.id = null; // ID is not needed for tickets in this simplified version
+        this.id = null; 
         this.trainName = new SimpleStringProperty(trainName);
         this.route = new SimpleStringProperty(route);
-        this.departureStation = null; // Not required for this use case
-        this.arrivalStation = null;  // Not required for this use case
+        this.departureStation = null; 
+        this.arrivalStation = null;  
         this.departureDate = null;
         this.arrivalDate = null;
         this.departureTime = null;
@@ -57,7 +56,7 @@ public class Schedule {
     }
 
     
-    // Getters and Setters for JavaFX Binding
+    // Getters and Setters 
     public StringProperty idProperty() {
         return id;
     }
